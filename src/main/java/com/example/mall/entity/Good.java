@@ -1,5 +1,7 @@
 package com.example.mall.entity;
 
+import java.util.Arrays;
+
 public class Good {
 
     private int id;
@@ -8,14 +10,21 @@ public class Good {
     private int goodCategory;
     private String goodIntroduction;
     private int goodSales;
+    private String goodOptions;
+    private byte[] goodPicture;
+    private String goodStore;
 
-    public Good(int id, String goodName, int goodPrice, int goodCategory, String goodIntroduction, int goodSales) {
+    public Good(int id, String goodName, int goodPrice, int goodCategory, String goodIntroduction,
+                int goodSales, String goodOptions, byte[] goodPicture, String goodStore) {
         this.id = id;
         this.goodName = goodName;
         this.goodPrice = goodPrice;
         this.goodCategory = goodCategory;
         this.goodIntroduction = goodIntroduction;
         this.goodSales = goodSales;
+        this.goodOptions = goodOptions;
+        this.goodPicture = goodPicture;
+        this.goodStore = goodStore;
     }
 
     public int getId() {
@@ -66,6 +75,30 @@ public class Good {
         this.goodSales = goodSales;
     }
 
+    public String getGoodOptions() {
+        return goodOptions;
+    }
+
+    public void setGoodOptions(String goodOptions) {
+        this.goodOptions = goodOptions;
+    }
+
+    public byte[] getGoodPicture() {
+        return goodPicture;
+    }
+
+    public void setGoodPicture(byte[] goodPicture) {
+        this.goodPicture = goodPicture;
+    }
+
+    public String getGoodStore() {
+        return goodStore;
+    }
+
+    public void setGoodStore(String goodStore) {
+        this.goodStore = goodStore;
+    }
+
     @Override
     public String toString() {
         return "Good{" +
@@ -75,6 +108,9 @@ public class Good {
                 ", goodCategory=" + goodCategory +
                 ", goodIntroduction='" + goodIntroduction + '\'' +
                 ", goodSales=" + goodSales +
+                ", goodOptions='" + goodOptions + '\'' +
+                ", goodPicture=" + Arrays.toString(goodPicture) +
+                ", goodStore='" + goodStore + '\'' +
                 '}';
     }
 

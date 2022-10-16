@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -35,8 +35,6 @@ public class UserService {
     private TemplateEngine templateEngine;
     @Autowired
     private RedisTemplate redisTemplate;
-    @Autowired
-    private Producer kaptchaProducer;
     @Value("${mall.path.domain}")
     private String domain;
     @Value("${server.servlet.context-path}")
@@ -66,10 +64,6 @@ public class UserService {
             map.put("passwordMsg", "密码不能为空!");
             return map;
         }
-        if (StringUtils.isBlank(user.getEmail())) {
-            map.put("emailMsg", "邮箱不能为空!");
-            return map;
-        }
         // 验证账号
         User u = userMapper.selectByName(user.getUsername());
         if (u != null) {
@@ -77,50 +71,19 @@ public class UserService {
             return map;
         }
         if(!user.getPassword().equals(confirmPassword)){
-            map.put("confirmPasswordMsg","两次输入的密码不一致!");
-            return map;
-        }
-        // 验证邮箱
-        u = userMapper.selectByEmail(user.getEmail());
-        if (u != null) {
-            map.put("emailMgs", "该邮箱已被注册!");
+            map.put("confirmPasswordMsg", "两次输入的密码不一致!");
             return map;
         }
         // 注册用户
         user.setSalt(MallUtil.generateUUID().substring(0, 5));
         user.setPassword(MallUtil.md5(user.getPassword() + user.getSalt()));
-        user.setType(0);
-        user.setStatus(0);
-        user.setActivationCode(MallUtil.generateUUID());
-        user.setHeaderUrl(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
-        user.setCreateTime(new Date());
+        user.setType(user.getType());
         userMapper.insertUser(user);
-        // 发送激活邮件
-        Context context = new Context();
-        context.setVariable("email", user.getEmail());
-        // http://localhost:8080/community/activation/101/code
-        String url = domain + contextPath + "/activation/" + user.getId() + "/" + user.getActivationCode();
-        context.setVariable("url", url);
-        String content = templateEngine.process("/mail/activation", context);
-        mailClient.sendMail(user.getEmail(), "激活账号", content);
 
         return map;
     }
 
-    public int activation(int userId, String code) {
-        User user = userMapper.selectById(userId);
-        if (user.getStatus() == 1) {
-            return ACTIVATION_REPEAT;
-        } else if (user.getActivationCode().equals(code)) {
-            userMapper.updateStatus(userId, 1);
-            clearCache(userId);
-            return ACTIVATION_SUCCESS;
-        } else {
-            return ACTIVATION_FAILURE;
-        }
-    }
-
-    public Map<String, Object> login(String username, String password, int expiredSeconds) {
+    public Map<String, Object> login(String username, String password) {
         Map<String, Object> map = new HashMap<>();
         // 空值处理
         if (StringUtils.isBlank(username)) {
@@ -131,34 +94,23 @@ public class UserService {
             map.put("passwordMsg", "密码不能为空！");
             return map;
         }
-
         // 验证账号
         User user = userMapper.selectByName(username);
         if (user == null) {
             map.put("usernameMsg", "该账号不存在！");
             return map;
         }
-
-        // 验证状态
-        if (user.getStatus() == 0) {
-            map.put("usernameMsg", "该账号未激活！");
-            return map;
-        }
-
         // 验证密码
         password = MallUtil.md5(password + user.getSalt());
         if (user.getPassword().equals(password)) {
             map.put("passwordMsg", "密码不正确！");
             return map;
         }
-
         // 生成登录凭证
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(user.getId());
         loginTicket.setTicket(MallUtil.generateUUID());
         loginTicket.setStatus(0);
-
-        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000L));
 //        loginTicketMapper.insertLoginTicket(loginTicket);
 
         String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
@@ -180,13 +132,6 @@ public class UserService {
 //        return loginTicketMapper.selectByTicket(ticket);
         String redisKey = RedisKeyUtil.getTicketKey(ticket);
         return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
-    }
-
-    public int updateHeader(int userId, String headerUrl) {
-//        return userMapper.updateHeader(userId, headerUrl);
-        int rows = userMapper.updateHeader(userId, headerUrl);
-        clearCache(userId);
-        return rows;
     }
 
     public Map<String, Object> changePassword(User user, String oldPassword, String newPassword, String confirmPassword) {
@@ -241,66 +186,24 @@ public class UserService {
     }
 
     // 查询某个用户的权限
-    public Collection<? extends GrantedAuthority> getAuthorities(int userId) {
-        User user = this.findUserById(userId);
-
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                switch (user.getType()) {
-                    case 0:
-                        return AUTHORITY_ADMIN;
-                    case 1:
-                        return AUTHORITY_SELLER;
-                    default:
-                        return AUTHORITY_BUYER;
-                }
-            }
-        });
-        return list;
-    }
-
-    public User findUserByEmail(String email) {
-        return userMapper.selectByEmail(email);
-    }
-
-    public void sendCode(String email, HttpServletResponse response) {
-        String text = MallUtil.generateUUID().substring(0,6);
-        // 验证码的归属
-        String codeOwner = MallUtil.generateUUID();
-        Cookie cookie = new Cookie("codeOwner", codeOwner);
-        //失效的时间是10min
-        cookie.setMaxAge(60*10);
-        cookie.setPath(contextPath);
-        response.addCookie(cookie);
-        // 将验证码存入Redis,失效的时间是10min
-        String redisKey = RedisKeyUtil.getCodeKey(codeOwner);
-        redisTemplate.opsForValue().set(redisKey, text, 60*10, TimeUnit.SECONDS);
-
-        // 激活邮件,使用thymeleaf创建的对象携带变量
-        Context context = new Context();
-        context.setVariable("email", email);
-        context.setVariable("text", text);
-        //使用模板引擎，利用thymeleaf，将context放到/mail/activation.html文件中，然后再利用mail包发送给邮箱
-        String content = templateEngine.process("/mail/forget", context);
-        mailClient.sendMail(email, "忘记密码", content);
-
-    }
-
-    public Map<String, Object> changePasswordByCode(String email, String password) {
-        Map<String, Object> map = new HashMap<>();
-        // 验证密码
-        if (StringUtils.isBlank(password)) {
-            map.put("passwordMsg", "密码不能为空!");
-            return map;
-        }
-        User user=userMapper.selectByEmail(email);
-        password=MallUtil.md5(password + user.getSalt());
-        userMapper.updatePassword(user.getId(),password);
-        map.put("success","success");
-        clearCache(user.getId());
-        return map;
-    }
+//    public Collection<? extends GrantedAuthority> getAuthorities(int userId) {
+//        User user = this.findUserById(userId);
+//
+//        List<GrantedAuthority> list = new ArrayList<>();
+//        list.add(new GrantedAuthority() {
+//            @Override
+//            public String getAuthority() {
+//                switch (user.getType()) {
+//                    case 0:
+//                        return AUTHORITY_ADMIN;
+//                    case 1:
+//                        return AUTHORITY_SELLER;
+//                    default:
+//                        return AUTHORITY_BUYER;
+//                }
+//            }
+//        });
+//        return list;
+//    }
 
 }

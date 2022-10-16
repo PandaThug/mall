@@ -8,13 +8,15 @@ public class User {
     private String username;
     private String password;
     private String salt;
-    private String email;
-    //0-普通用户    1-版主    2-管理员
-    private int type;
-    private int status;
-    private String activationCode;
-    private String headerUrl;
-    private Date createTime;
+    private int type;  // 0-管理员    1-卖家    2-买家
+
+    public User(int id, String username, String password, String salt, int type) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -48,52 +50,12 @@ public class User {
         this.salt = salt;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getType() {
         return type;
     }
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getActivationCode() {
-        return activationCode;
-    }
-
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode;
-    }
-
-    public String getHeaderUrl() {
-        return headerUrl;
-    }
-
-    public void setHeaderUrl(String headerUrl) {
-        this.headerUrl = headerUrl;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 
     @Override
@@ -103,14 +65,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
-                ", email='" + email + '\'' +
                 ", type=" + type +
-                ", status=" + status +
-                ", activationCode='" + activationCode + '\'' +
-                ", headerUrl='" + headerUrl + '\'' +
-                ", createTime=" + createTime +
                 '}';
     }
-
 
 }
