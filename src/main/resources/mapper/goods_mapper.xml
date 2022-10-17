@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mall.dao.GoodsMapper">
 
     <select id="selectById" resultType="com.example.mall.entity.Good">
-        select id, good_name, good_price, good_category, good_introduction, good_sales
+        select id, good_name, good_price, good_category, good_introduction, good_sales,
         from goods
         where id = #{id}
     </select>
@@ -29,8 +29,8 @@
     </select>
 
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
-        insert into good (good_name, good_price, good_category, good_introduction, good_sales)
-        values (#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales})
+        insert into good (good_name, good_price, good_category, good_introduction, good_sales, good_options)
+        values (#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions})
     </insert>
 
     <update id="updateGoodName">

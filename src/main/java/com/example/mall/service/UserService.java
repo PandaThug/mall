@@ -40,7 +40,7 @@ public class UserService {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-    public User findUserById(int id) {
+    public User findUserById(String id) {
 //        return userMapper.selectById(id);
         User user = getCache(id);
         if (user == null) {
@@ -67,7 +67,7 @@ public class UserService {
         // 验证账号
         User u = userMapper.selectByName(user.getUsername());
         if (u != null) {
-            map.put("usernameMgs", "该账号已存在!");
+            map.put("usernameMsg", "该账号已存在!");
             return map;
         }
         if(!user.getPassword().equals(confirmPassword)){
@@ -87,23 +87,23 @@ public class UserService {
         Map<String, Object> map = new HashMap<>();
         // 空值处理
         if (StringUtils.isBlank(username)) {
-            map.put("usernameMsg", "账号不能为空！");
+            map.put("usernameMsg", "账号不能为空!");
             return map;
         }
         if (StringUtils.isBlank(password)) {
-            map.put("passwordMsg", "密码不能为空！");
+            map.put("passwordMsg", "密码不能为空!");
             return map;
         }
         // 验证账号
         User user = userMapper.selectByName(username);
         if (user == null) {
-            map.put("usernameMsg", "该账号不存在！");
+            map.put("usernameMsg", "该账号不存在!");
             return map;
         }
         // 验证密码
         password = MallUtil.md5(password + user.getSalt());
         if (user.getPassword().equals(password)) {
-            map.put("passwordMsg", "密码不正确！");
+            map.put("passwordMsg", "密码不正确!");
             return map;
         }
         // 生成登录凭证
@@ -150,7 +150,7 @@ public class UserService {
             map.put("confirmPasswordMsg", "两次输入的密码不一致!");
             return map;
         }
-        int id=user.getId();
+        String id = user.getId();
         newPassword=MallUtil.md5(newPassword + user.getSalt());
         if(oldPassword.equals(newPassword)){
             map.put("newPasswordMsg", "旧密码与新密码一致!");
@@ -166,13 +166,13 @@ public class UserService {
     }
 
     // 1.优先从缓存中取值
-    private User getCache(int userId) {
+    private User getCache(String userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         return (User) redisTemplate.opsForValue().get(redisKey);
     }
 
     // 2.取不到时初始化缓存数据
-    private User initCache(int userId) {
+    private User initCache(String userId) {
         User user = userMapper.selectById(userId);
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
@@ -180,7 +180,7 @@ public class UserService {
     }
 
     // 3.数据变更时清除缓存数据
-    private void clearCache(int userId) {
+    private void clearCache(String userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.delete(redisKey);
     }

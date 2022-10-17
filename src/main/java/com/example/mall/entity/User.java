@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class User {
 
-    private int id;
+    private String id;
     private String username;
     private String password;
     private String salt;
-    private int type;  // 0-管理员    1-卖家    2-买家
+    private String type;  // 0-管理员    1-卖家    2-买家
 
-    public User(int id, String username, String password, String salt, int type) {
+    public User(String id, String username, String password, String salt, String type) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -18,11 +18,11 @@ public class User {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,11 +50,11 @@ public class User {
         this.salt = salt;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

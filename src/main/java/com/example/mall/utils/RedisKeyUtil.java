@@ -19,7 +19,7 @@ public class RedisKeyUtil {
     }
 
     // 用户
-    public static String getUserKey(int userId) {
+    public static String getUserKey(String userId) {
         return PREFIX_USER + SPLIT + userId;
     }
 

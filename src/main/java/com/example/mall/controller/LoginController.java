@@ -14,10 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -61,13 +58,12 @@ public class LoginController {
 
         Map<String, Object> map = userService.register(user, confirmPassword);
         if (map == null || map.isEmpty()) {
-            model.addAttribute("msg", "注册成功！");
+            model.addAttribute("msg", "注册成功!");
             return "/index";
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
             model.addAttribute("confirmPasswordMsg", map.get("confirmPasswordMsg"));
-            model.addAttribute("emailMsg", map.get("emailMsg"));
             return "/site/register";
         }
 
