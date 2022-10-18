@@ -6,7 +6,6 @@ import com.example.mall.entity.User;
 import com.example.mall.utils.MailClient;
 import com.example.mall.utils.MallUtil;
 import com.example.mall.utils.RedisKeyUtil;
-import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,15 +13,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
-import static com.example.mall.utils.MallConstant.*;
 
 @Service
 public class UserService {
@@ -100,7 +94,7 @@ public class UserService {
             return map;
         }
         // 验证密码
-        if (user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(password)) {
             map.put("passwordMsg", "密码不正确!");
             return map;
         }
@@ -161,6 +155,14 @@ public class UserService {
 
     public User findUserByName(String userName) {
         return userMapper.selectByName(userName);
+    }
+
+    public int findIdByName(String userName) {
+        return userMapper.selectIdByName(userName);
+    }
+
+    public String findTypeByName(String userName) {
+        return userMapper.selectTypeByName(userName);
     }
 
     // 1.优先从缓存中取值

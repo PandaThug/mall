@@ -16,6 +16,18 @@
         where username = #{username}
     </select>
 
+    <select id="selectIdByName" resultType="int">
+        select id
+        from user
+        where username = #{username}
+    </select>
+
+    <select id="selectTypeByName" resultType="java.lang.String">
+        select type
+        from user
+        where username = #{username}
+    </select>
+
     <insert id="insertUser" parameterType="com.example.mall.entity.User" keyProperty="id">
         insert into user (username, password, type)
         values (#{username},#{password},#{type})

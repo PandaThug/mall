@@ -11,6 +11,10 @@ public interface UserMapper {
 
     User selectByName(@Param("username")String username);
 
+    int selectIdByName(@Param("username")String username);
+
+    String selectTypeByName(@Param("username")String username);
+
     int insertUser(User user);
 
     int updatePassword(@Param("id")String id,@Param("password") String password);

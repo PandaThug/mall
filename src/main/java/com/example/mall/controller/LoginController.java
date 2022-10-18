@@ -74,6 +74,8 @@ public class LoginController {
             cookie.setMaxAge(expiredSeconds);
             response.addCookie(cookie);
             model.addAttribute("msg", "登录成功!");
+            model.addAttribute("id", userService.findIdByName(username));
+            model.addAttribute("type", userService.findTypeByName(username));
             return model.toString();
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
