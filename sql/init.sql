@@ -9,7 +9,6 @@ CREATE TABLE `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,  # 用户编号
   `username` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户名
   `password` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户密码
-  `salt` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 密码加密
   `type` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0-管理员; 1-卖家; 2-买家;',  # 用户类型
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_username`(`username`(20)) USING BTREE

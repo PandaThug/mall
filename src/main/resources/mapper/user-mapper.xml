@@ -5,20 +5,20 @@
 <mapper namespace="com.example.mall.dao.UserMapper">
 
     <select id="selectById" resultType="com.example.mall.entity.User">
-        select id, username, password, salt, type
+        select id, username, password, type
         from user
         where id = #{id}
     </select>
 
     <select id="selectByName" resultType="com.example.mall.entity.User">
-        select id, username, password, salt, type
+        select id, username, password, type
         from user
         where username = #{username}
     </select>
 
     <insert id="insertUser" parameterType="com.example.mall.entity.User" keyProperty="id">
-        insert into user (username, password, salt, type)
-        values (#{username},#{password},#{salt},#{type})
+        insert into user (username, password, type)
+        values (#{username},#{password},#{type})
     </insert>
 
     <update id="updatePassword">

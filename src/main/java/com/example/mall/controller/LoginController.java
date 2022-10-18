@@ -2,10 +2,6 @@ package com.example.mall.controller;
 
 import com.example.mall.entity.User;
 import com.example.mall.service.UserService;
-import com.example.mall.utils.MallUtil;
-import com.example.mall.utils.RedisKeyUtil;
-import com.google.code.kaptcha.Producer;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.mall.utils.MallConstant.*;
 
@@ -54,37 +45,40 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String register(Model model, User user, String confirmPassword) {
+    @ResponseBody
+    public String register(Model model, @RequestBody User user/*, String confirmPassword*/) {
 
-        Map<String, Object> map = userService.register(user, confirmPassword);
+        Map<String, Object> map = userService.register(user);
         if (map == null || map.isEmpty()) {
             model.addAttribute("msg", "注册成功!");
-            return "/index";
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
             model.addAttribute("confirmPasswordMsg", map.get("confirmPasswordMsg"));
-            return "/site/register";
         }
+        return model.toString();
 
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
+    @ResponseBody
     public String login(String username, String password,
                         Model model, /*HttpSession session,*/HttpServletResponse response) {
 
         // 检查账号、密码
-        Map<String, Object> map = userService.login(username, password);
+        int expiredSeconds = DEFAULT_EXPIRED_SECONDS;
+        Map<String, Object> map = userService.login(username, password, expiredSeconds);
         if (map.containsKey("ticket")) {
             Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
             cookie.setPath(contextPath);
-            cookie.setMaxAge(DEFAULT_EXPIRED_SECONDS);
+            cookie.setMaxAge(expiredSeconds);
             response.addCookie(cookie);
-            return "redirect:/index";
+            model.addAttribute("msg", "登录成功!");
+            return model.toString();
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
-            return "/site/login";
+            return model.toString();
         }
 
     }

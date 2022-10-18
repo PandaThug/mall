@@ -7,14 +7,12 @@ public class User {
     private String id;
     private String username;
     private String password;
-    private String salt;
     private String type;  // 0-管理员    1-卖家    2-买家
 
-    public User(String id, String username, String password, String salt, String type) {
+    public User(String id, String username, String password, String type) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.salt = salt;
         this.type = type;
     }
 
@@ -42,14 +40,6 @@ public class User {
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public String getType() {
         return type;
     }
@@ -64,7 +54,6 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
                 ", type=" + type +
                 '}';
     }

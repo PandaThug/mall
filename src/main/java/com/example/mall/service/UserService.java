@@ -50,7 +50,7 @@ public class UserService {
     }
 
     // 用户注册
-    public Map<String, Object> register(User user, String confirmPassword) {
+    public Map<String, Object> register(User user/*, String confirmPassword*/) {
         Map<String, Object> map = new HashMap<>();
         // 空值处理
         if (user == null) {
@@ -70,20 +70,19 @@ public class UserService {
             map.put("usernameMsg", "该账号已存在!");
             return map;
         }
-        if(!user.getPassword().equals(confirmPassword)){
-            map.put("confirmPasswordMsg", "两次输入的密码不一致!");
-            return map;
-        }
+//        if(!user.getPassword().equals(confirmPassword)){
+//            map.put("confirmPasswordMsg", "两次输入的密码不一致!");
+//            return map;
+//        }
         // 注册用户
-        user.setSalt(MallUtil.generateUUID().substring(0, 5));
-        user.setPassword(MallUtil.md5(user.getPassword() + user.getSalt()));
+        user.setPassword(user.getPassword());
         user.setType(user.getType());
         userMapper.insertUser(user);
 
         return map;
     }
 
-    public Map<String, Object> login(String username, String password) {
+    public Map<String, Object> login(String username, String password, int expiredSeconds) {
         Map<String, Object> map = new HashMap<>();
         // 空值处理
         if (StringUtils.isBlank(username)) {
@@ -101,7 +100,6 @@ public class UserService {
             return map;
         }
         // 验证密码
-        password = MallUtil.md5(password + user.getSalt());
         if (user.getPassword().equals(password)) {
             map.put("passwordMsg", "密码不正确!");
             return map;
@@ -111,6 +109,8 @@ public class UserService {
         loginTicket.setUserId(user.getId());
         loginTicket.setTicket(MallUtil.generateUUID());
         loginTicket.setStatus(0);
+
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000L));
 //        loginTicketMapper.insertLoginTicket(loginTicket);
 
         String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
@@ -137,7 +137,6 @@ public class UserService {
     public Map<String, Object> changePassword(User user, String oldPassword, String newPassword, String confirmPassword) {
         Map<String, Object> map = new HashMap<>();
         // 验证密码
-        oldPassword = MallUtil.md5(oldPassword + user.getSalt());
         if (!user.getPassword().equals(oldPassword)) {
             map.put("oldPasswordMsg", "密码不正确!");
             return map;
@@ -151,7 +150,6 @@ public class UserService {
             return map;
         }
         String id = user.getId();
-        newPassword=MallUtil.md5(newPassword + user.getSalt());
         if(oldPassword.equals(newPassword)){
             map.put("newPasswordMsg", "旧密码与新密码一致!");
             return map;
