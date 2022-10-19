@@ -9,6 +9,7 @@ import com.example.mall.utils.MailClient;
 import com.example.mall.utils.MallUtil;
 import com.example.mall.utils.RedisKeyUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.util.TimSorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +43,7 @@ public class UserService {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-    public User findUserById(String id) {
+    public User findUserById(int id) {
 //        return userMapper.selectById(id);
         User user = getCache(id);
         if (user == null) {
@@ -78,8 +82,8 @@ public class UserService {
         user.setType(user.getType());
         userMapper.insertUser(user);
         if (user.getType().equals("2")) {
-            storeMapper.insertStore(new Store(new Date(System.currentTimeMillis()), 0,
-                    "这个店铺暂时没有描述~", user.getUsername() + "的店铺", user.getId()));
+            storeMapper.insertStore(new Store(user.getId(), user.getUsername() + "的店铺",
+                    0 ,"这个店铺暂时没有描述~"));
         }
 
         return map;
@@ -152,7 +156,7 @@ public class UserService {
             map.put("confirmPasswordMsg", "两次输入的密码不一致!");
             return map;
         }
-        String id = user.getId();
+        int id = user.getId();
         if(oldPassword.equals(newPassword)){
             map.put("newPasswordMsg", "旧密码与新密码一致!");
             return map;
@@ -175,13 +179,13 @@ public class UserService {
     }
 
     // 1.优先从缓存中取值
-    private User getCache(String userId) {
+    private User getCache(int userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         return (User) redisTemplate.opsForValue().get(redisKey);
     }
 
     // 2.取不到时初始化缓存数据
-    private User initCache(String userId) {
+    private User initCache(int userId) {
         User user = userMapper.selectUserById(userId);
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
@@ -189,7 +193,7 @@ public class UserService {
     }
 
     // 3.数据变更时清除缓存数据
-    private void clearCache(String userId) {
+    private void clearCache(int userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.delete(redisKey);
     }

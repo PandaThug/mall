@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class User {
 
-    private String id;
+    private Integer id;
     private String username;
     private String password;
     private String type;  // 0-管理员    1-卖家    2-买家
 
-    public User(String id, String username, String password, String type) {
+    public User(Integer id, String username, String password, String type) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.type = type;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

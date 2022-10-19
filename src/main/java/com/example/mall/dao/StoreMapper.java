@@ -7,19 +7,20 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface StoreMapper {
 
-    // store_id, store_name, create_time, total_sales, instruction
-    Store selectStoreById(@Param("storeId") String storeId);
+    // store_id, store_name, total_sales, instruction
+    Store selectStoreById(@Param("storeId") Integer storeId);
 
-    // store_id, store_name, create_time, total_sales, instruction
+    // store_id, store_name, total_sales, instruction
     Store selectStoreByName(@Param("storeName") String storeName);
 
-    Store selectStoreByUserId(@Param("userId") String userId);
+    // store_id, store_name, total_sales, instruction
+    Store selectStoreByUserId(@Param("userId") Integer userId);
 
-    // store_id, store_name, create_time, total_sales, instruction
+    // store_id, store_name, total_sales, instruction
     int insertStore(Store store);
 
-    int updateStoreName(@Param("storeId") String storeId, @Param("storeName") String storeName);
+    int updateStoreName(@Param("storeId") Integer storeId, @Param("storeName") String storeName);
 
-    int updateStoreInstruction(@Param("storeId") String storeId, @Param("instruction") String instruction);
+    int updateStoreInstruction(@Param("storeId") Integer storeId, @Param("instruction") String instruction);
 
 }

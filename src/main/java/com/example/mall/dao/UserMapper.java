@@ -7,16 +7,16 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
 
-    User selectUserById(@Param("id")String id);
+    User selectUserById(@Param("id")Integer id);
 
     User selectUserByName(@Param("username")String username);
 
-    int selectIdByName(@Param("username")String username);
+    Integer selectIdByName(@Param("username")String username);
 
     String selectTypeByName(@Param("username")String username);
 
-    int insertUser(User user);
+    Integer insertUser(User user);
 
-    int updatePassword(@Param("id")String id,@Param("password") String password);
+    Integer updatePassword(@Param("id")Integer id,@Param("password") String password);
 
 }

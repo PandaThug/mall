@@ -1,6 +1,7 @@
 package com.example.mall.service;
 
 import com.example.mall.dao.StoreMapper;
+import com.example.mall.dao.UserMapper;
 import com.example.mall.entity.Store;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ public class StoreService {
 
     @Autowired
     private StoreMapper storeMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     // 修改店铺名称
-    public Map<String, Object> changeStoreName(String storeId, String storeName) {
+    public Map<String, Object> changeStoreName(Integer storeId, String storeName) {
         HashMap<String , Object> map = new HashMap<>();
         // 空值处理
         if (StringUtils.isBlank(storeName)) {
@@ -29,7 +32,7 @@ public class StoreService {
     }
 
     // 修改店铺简介
-    public Map<String, Object> changeStoreInstruction(String storeId, String instruction) {
+    public Map<String, Object> changeStoreInstruction(Integer storeId, String instruction) {
         HashMap<String , Object> map = new HashMap<>();
         // 空值处理
         if (StringUtils.isBlank(instruction)) {
@@ -41,7 +44,7 @@ public class StoreService {
     }
 
     // 修改店铺名称和简介
-    public Map<String, Object> changeStoreNameAndInstruction(String storeId, String storeName, String instruction) {
+    public Map<String, Object> changeStoreNameAndInstruction(Integer storeId, String storeName, String instruction) {
         HashMap<String , Object> map = new HashMap<>();
         if (StringUtils.isBlank(storeName)) {
             map.put("msg", "店铺名称不能为空!");
@@ -57,8 +60,16 @@ public class StoreService {
     }
 
     // 根据用户的id获取店铺信息(店铺编号、店铺名称、店铺简介)
-    public Store findStoreByUserId(String userId) {
-        return storeMapper.selectStoreByUserId(userId);
+    public Map<String, Object> findStoreByUserId(Integer userId) {
+
+        Map<String, Object> map = new HashMap<>();
+        Store store = storeMapper.selectStoreByUserId(userId);
+        map.put("storeId", store.getStoreId());
+        map.put("storeName", store.getStoreName());
+        map.put("storeInstruction", store.getInstruction());
+        return map;
+//        return storeMapper.selectStoreByUserId(userId);
+
     }
 
 }

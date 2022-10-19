@@ -5,26 +5,32 @@ import java.util.Date;
 
 public class Store {
 
-    private Date createTime;
-    private int totalSales;
-    private String instruction;
+    private Integer storeId;
     private String storeName;
-    private String storeId;
+    private Integer totalSales;
+    private String instruction;
 
-    public Store(Date createTime, int totalSales, String instruction, String storeName, String storeId) {
-        this.createTime = createTime;
+    public Store(Integer storeId, String storeName, int totalSales, String instruction) {
+        this.storeId = storeId;
+        this.storeName = storeName;
         this.totalSales = totalSales;
         this.instruction = instruction;
-        this.storeName = storeName;
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public int getTotalSales() {
@@ -43,30 +49,13 @@ public class Store {
         this.instruction = instruction;
     }
 
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
-    }
-
     @Override
     public String toString() {
         return "Store{" +
-                "createTime=" + createTime +
+                "storeId='" + storeId + '\'' +
+                ", storeName='" + storeName + '\'' +
                 ", totalSales=" + totalSales +
                 ", instruction='" + instruction + '\'' +
-                ", storeName='" + storeName + '\'' +
-                ", storeId=" + storeId +
                 '}';
     }
 

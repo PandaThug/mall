@@ -40,7 +40,6 @@ DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
     `store_id` INT(11) NOT NULL,  # 商家店铺编号
     `store_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 店铺名称
-    `create_time` TIMESTAMP NULL DEFAULT NULL,  # 商家注册时间
     `total_sales` INT(11) DEFAULT NULL,  # 商家店铺总销量
     `instruction` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 店铺简介
     PRIMARY KEY (`store_id`) USING BTREE
