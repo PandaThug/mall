@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller()
+@Controller
 public class ManageController {
 
     @Autowired
     private StoreService storeService;
 
-    @RequestMapping(path = "/update", method = RequestMethod.POST)
+    @RequestMapping(path = "/store/update", method = RequestMethod.POST)
     @ResponseBody
     public String updateStore(Model model, String storeId, String storeName, String instruction) {
         Map<String, Object> map = storeService.changeStoreNameAndInstruction(storeId, storeName, instruction);
@@ -33,7 +33,7 @@ public class ManageController {
         return model.toString();
     }
 
-    @RequestMapping(path = "/information", method = RequestMethod.POST)
+    @RequestMapping(path = "/store/information", method = RequestMethod.POST)
     @ResponseBody
     public String getStoreInformation(Model model, String storeId) {
         Store store = storeService.findStoreByUserId(storeId);

@@ -11,7 +11,7 @@ public interface StoreMapper {
     Store selectStoreById(@Param("storeId") String storeId);
 
     // store_id, store_name, create_time, total_sales, instruction
-    Store selectStoreByName(@Param("name") String name);
+    Store selectStoreByName(@Param("storeName") String storeName);
 
     Store selectStoreByUserId(@Param("userId") String userId);
 
