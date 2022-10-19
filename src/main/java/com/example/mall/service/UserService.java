@@ -1,7 +1,9 @@
 package com.example.mall.service;
 
+import com.example.mall.dao.StoreMapper;
 import com.example.mall.dao.UserMapper;
 import com.example.mall.entity.LoginTicket;
+import com.example.mall.entity.Store;
 import com.example.mall.entity.User;
 import com.example.mall.utils.MailClient;
 import com.example.mall.utils.MallUtil;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +26,8 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private StoreMapper storeMapper;
     @Autowired
     private MailClient mailClient;
     @Resource
@@ -59,7 +64,7 @@ public class UserService {
             return map;
         }
         // 验证账号
-        User u = userMapper.selectByName(user.getUsername());
+        User u = userMapper.selectUserByName(user.getUsername());
         if (u != null) {
             map.put("usernameMsg", "该账号已存在!");
             return map;
@@ -72,6 +77,10 @@ public class UserService {
         user.setPassword(user.getPassword());
         user.setType(user.getType());
         userMapper.insertUser(user);
+        if (user.getType().equals("2")) {
+            storeMapper.insertStore(new Store(new Date(System.currentTimeMillis()), 0,
+                    "这个店铺暂时没有描述~", user.getUsername() + "的店铺", user.getId()));
+        }
 
         return map;
     }
@@ -88,7 +97,7 @@ public class UserService {
             return map;
         }
         // 验证账号
-        User user = userMapper.selectByName(username);
+        User user = userMapper.selectUserByName(username);
         if (user == null) {
             map.put("usernameMsg", "该账号不存在!");
             return map;
@@ -154,7 +163,7 @@ public class UserService {
     }
 
     public User findUserByName(String userName) {
-        return userMapper.selectByName(userName);
+        return userMapper.selectUserByName(userName);
     }
 
     public int findIdByName(String userName) {
@@ -173,7 +182,7 @@ public class UserService {
 
     // 2.取不到时初始化缓存数据
     private User initCache(String userId) {
-        User user = userMapper.selectById(userId);
+        User user = userMapper.selectUserById(userId);
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
         return user;

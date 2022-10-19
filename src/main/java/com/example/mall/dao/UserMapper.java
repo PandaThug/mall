@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
 
-    User selectById(@Param("id")String id);
+    User selectUserById(@Param("id")String id);
 
-    User selectByName(@Param("username")String username);
+    User selectUserByName(@Param("username")String username);
 
     int selectIdByName(@Param("username")String username);
 

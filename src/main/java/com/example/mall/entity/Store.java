@@ -9,16 +9,14 @@ public class Store {
     private int totalSales;
     private String instruction;
     private String storeName;
-    private int storeId;
-    private int goodId;
+    private String storeId;
 
-    public Store(Date createTime, int totalSales, String instruction, String storeName, int storeId, int goodId) {
+    public Store(Date createTime, int totalSales, String instruction, String storeName, String storeId) {
         this.createTime = createTime;
         this.totalSales = totalSales;
         this.instruction = instruction;
         this.storeName = storeName;
         this.storeId = storeId;
-        this.goodId = goodId;
     }
 
     public Date getCreateTime() {
@@ -53,20 +51,12 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public int getStoreId() {
+    public String getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(int storeId) {
+    public void setStoreId(String storeId) {
         this.storeId = storeId;
-    }
-
-    public int getGoodId() {
-        return goodId;
-    }
-
-    public void setGoodId(int goodId) {
-        this.goodId = goodId;
     }
 
     @Override
@@ -77,7 +67,6 @@ public class Store {
                 ", instruction='" + instruction + '\'' +
                 ", storeName='" + storeName + '\'' +
                 ", storeId=" + storeId +
-                ", goodId=" + goodId +
                 '}';
     }
 

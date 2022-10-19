@@ -4,41 +4,45 @@
         "htttp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mall.dao.GoodsMapper">
 
-    <select id="selectById" resultType="com.example.mall.entity.Good">
-        select id, good_name, good_price, good_category, good_introduction, good_sales,
+    <select id="selectGoodById" resultType="com.example.mall.entity.Good">
+        select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
+            good_store
         from goods
         where id = #{id}
     </select>
 
-    <select id="selectByName" resultType="com.example.mall.entity.Good">
-        select id, good_name, good_price, good_category, good_introduction, good_sales
+    <select id="selectGoodByName" resultType="com.example.mall.entity.Good">
+        select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
+            good_store
         from goods
         where good_name = #{goodName}
     </select>
 
-    <select id="selectByCategory" resultType="List">
-        select id, good_name, good_price, good_category, good_introduction, good_sales
+    <select id="selectGoodByCategory" resultType="List">
+        select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
+            good_store
         from goods
         where good_category = #{goodCategory}
     </select>
 
-    <select id="selectBySales" resultType="List">
-        select id, good_name, good_price, good_category, good_introduction, good_sales
+    <select id="SelectGoodBySales" resultType="List">
+        select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
+            good_store
         from goods
         order by good_sales
     </select>
 
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
-        insert into good (good_name, good_price, good_category, good_introduction, good_sales, good_options)
+        insert into goods (good_name, good_price, good_category, good_introduction, good_sales, good_options)
         values (#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions})
     </insert>
 
     <update id="updateGoodName">
-        update good set good_name = #{goodName} where id = #{id}
+        update goods set good_name = #{goodName} where id = #{id}
     </update>
 
     <update id="updateGoodPrice">
-        update good set good_price = #{goodPrice} where id = #{id}
+        update goods set good_price = #{goodPrice} where id = #{id}
     </update>
 
 </mapper>

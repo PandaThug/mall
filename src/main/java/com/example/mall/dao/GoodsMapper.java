@@ -9,15 +9,20 @@ import java.util.List;
 @Mapper
 public interface GoodsMapper {
 
-    Good selectById(@Param("id") int id);
+    // id, good_name, good_price, good_category, good_introduction, good_sales
+    Good selectGoodById(@Param("id") int id);
 
-    Good selectByName(@Param("goodName") String goodName);
+    // id, good_name, good_price, good_category, good_introduction, good_sales
+    Good selectGoodByName(@Param("goodName") String goodName);
 
-    List<Good> selectByCategory(@Param("goodCategory") int goodCategory);
+    // id, good_name, good_price, good_category, good_introduction, good_sales
+    List<Good> selectGoodByCategory(@Param("goodCategory") int goodCategory);
 
     // 按照商品销量排序
-    List<Good> selectBySales();
+    // id, good_name, good_price, good_category, good_introduction, good_sales
+    List<Good> SelectGoodBySales();
 
+    // good_name, good_price, good_category, good_introduction, good_sales, good_options
     int insertGood(Good good);
 
     int updateGoodName(@Param("id") int id, @Param("goodName") String goodName);

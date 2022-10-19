@@ -17,8 +17,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Table structure for goods
 -- ----------------------------
-DROP TABLE IF EXISTS `good`;
-CREATE TABLE `good` (
+DROP TABLE IF EXISTS `goods`;
+CREATE TABLE `goods` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,  # 商品编号
     `good_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品名称
     `good_price` INT(11) NOT NULL,  # 商品价格
@@ -38,12 +38,11 @@ CREATE TABLE `good` (
 -- ----------------------------
 DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
+    `store_id` INT(11) NOT NULL,  # 商家店铺编号
+    `store_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 店铺名称
     `create_time` TIMESTAMP NULL DEFAULT NULL,  # 商家注册时间
     `total_sales` INT(11) DEFAULT NULL,  # 商家店铺总销量
     `instruction` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 店铺简介
-    `store_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 店铺名称
-    `store_id` INT(11) NOT NULL AUTO_INCREMENT,  # 商家店铺编号
-    `good_id` INT(11) NOT NULL,  # 商家店铺包含的商品编号
     PRIMARY KEY (`store_id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
