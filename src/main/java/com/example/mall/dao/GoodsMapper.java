@@ -16,7 +16,7 @@ public interface GoodsMapper {
     Good selectGoodByName(@Param("goodName") String goodName);
 
     // id, good_name, good_price, good_category, good_introduction, good_sales
-    List<Good> selectGoodByCategory(@Param("goodCategory") int goodCategory);
+    List<Good> selectGoodByCategory(@Param("goodCategory") String goodCategory);
 
     // 按照商品销量排序
     // id, good_name, good_price, good_category, good_introduction, good_sales

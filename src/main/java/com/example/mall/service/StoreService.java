@@ -72,4 +72,9 @@ public class StoreService {
 
     }
 
+    // 根据店铺名称查询店铺编号
+    public int findStoreIdByName(String storeName) {
+        return storeMapper.selectStoreIdByName(storeName);
+    }
+
 }

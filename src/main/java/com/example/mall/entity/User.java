@@ -9,6 +9,9 @@ public class User {
     private String password;
     private String type;  // 0-管理员    1-卖家    2-买家
 
+    public User() {
+    }
+
     public User(Integer id, String username, String password, String type) {
         this.id = id;
         this.username = username;

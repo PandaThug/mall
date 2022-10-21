@@ -33,8 +33,8 @@
     </select>
 
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
-        insert into goods (good_name, good_price, good_category, good_introduction, good_sales, good_options)
-        values (#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions})
+        insert into goods (id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store)
+        values (#{id},#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions},#{goodPicture},#{goodStore})
     </insert>
 
     <update id="updateGoodName">

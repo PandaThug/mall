@@ -22,6 +22,12 @@
         where store_id = #{userId}
     </select>
 
+    <select id="selectStoreIdByName" resultType="int">
+        select store_id
+        from store
+        where store_name = #{storeName}
+    </select>
+
     <insert id="insertStore" parameterType="com.example.mall.entity.Store" keyProperty="storeId">
         insert into store (store_id, store_name, total_sales, instruction)
         values (#{storeId},#{storeName},#{totalSales},#{instruction})
@@ -34,5 +40,6 @@
     <update id="updateStoreInstruction">
         update store set instruction = #{instruction} where store_id = #{storeId}
     </update>
+
 
 </mapper>

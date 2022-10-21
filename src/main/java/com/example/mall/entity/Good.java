@@ -7,14 +7,14 @@ public class Good {
     private int id;
     private String goodName;
     private int goodPrice;
-    private int goodCategory;
+    private String goodCategory;
     private String goodIntroduction;
     private int goodSales;
     private String goodOptions;
     private byte[] goodPicture;
     private String goodStore;
 
-    public Good(int id, String goodName, int goodPrice, int goodCategory, String goodIntroduction,
+    public Good(int id, String goodName, int goodPrice, String goodCategory, String goodIntroduction,
                 int goodSales, String goodOptions, byte[] goodPicture, String goodStore) {
         this.id = id;
         this.goodName = goodName;
@@ -51,11 +51,11 @@ public class Good {
         this.goodPrice = goodPrice;
     }
 
-    public int getGoodCategory() {
+    public String getGoodCategory() {
         return goodCategory;
     }
 
-    public void setGoodCategory(int goodCategory) {
+    public void setGoodCategory(String goodCategory) {
         this.goodCategory = goodCategory;
     }
 
