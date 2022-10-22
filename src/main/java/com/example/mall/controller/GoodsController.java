@@ -45,7 +45,8 @@ public class GoodsController {
 
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(Model model, @RequestBody Good good){
+    public String addGood(Model model, String goodName, String goodCategory, int goodPrice, String goodImg,
+                          String goodOptions, String goodDetails){
 
         User user = hostHolder.getUser();
 
@@ -53,16 +54,15 @@ public class GoodsController {
         if (user == null) {
             return MallUtil.getJSONString(403, "你还没有登录!");
         }
-        if (!user.getType().equals("1")) {
+        if (!user.getType().equals("2")) {
             return MallUtil.getJSONString(403, "你没有商品管理权限!");
         }
 
         Map<String, Object> storeByUserId = storeService.findStoreByUserId(user.getId());
         String storeName = (String) storeByUserId.get("storeName");
         int storeId = storeService.findStoreIdByName(storeName);
-        good.setGoodStore(storeName);
 
-        good.setGoodSales(0);
+        Good good = new Good(1, goodName, goodPrice, goodCategory, goodDetails, 0, goodOptions, goodImg, storeName);
 
         Map<String, Object> map = goodsService.addGoods(good);
 

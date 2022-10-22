@@ -9,7 +9,7 @@ CREATE TABLE `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,  # 用户编号
   `username` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户名
   `password` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户密码
-  `type` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0-管理员; 1-卖家; 2-买家;',  # 用户类型
+  `type` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0-管理员; 1-买家; 2-卖家;',  # 用户类型
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_username`(`username`(20)) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
@@ -72,5 +72,7 @@ CREATE TABLE `comment` (
     `comment_time` TIMESTAMP NULL DEFAULT NULL,  # 评价时间
     `comment_score` INT(5) NOT NULL,  # 评价分数
     `comment_content` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 评价内容
+    `comment_store_id` INT(11) NOT NULL,  # 评价对应的店铺
+    `comment_good_id` INT(11) NOT NULL,  # 相应店铺里的商品
     PRIMARY KEY (`id`) USING BTREE
 )ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;

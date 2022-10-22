@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -57,6 +58,11 @@ public class GoodsService {
 
         return map;
 
+    }
+
+    public List<Good> getGoods(int storeId) {
+        // TODO
+        return null;
     }
 
 }

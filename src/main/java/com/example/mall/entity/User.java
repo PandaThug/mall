@@ -7,7 +7,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String type;  // 0-管理员    1-卖家    2-买家
+    private String type;  // 0-管理员    1-买家    2-卖家
 
     public User() {
     }
