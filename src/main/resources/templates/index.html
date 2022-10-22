@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/qingchu.css}">
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/vue.js}"></script>
+    <script  th:src="@{/js/swiper-bundle.min.js}"></script>
+     <!-- <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+     <link rel="stylesheet" href="../static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/qingchu.css">
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/swiper-bundle.min.js"></script>
+    <script src="../static/js/vue.js"></script> -->
+    <title>首页_网上商城</title>
+</head>
+<body>
+    <div id="root">
+        <div class="top container">
+            <div class="col-sm-6 col-md-4 col-xs-10 col-sm-offset-3 col-md-offset-4 col-xs-offset-1 row toprow">
+                <div class="searchFrame">
+                     <input type="text" id="search" placeholder="想要找啥呢？" maxlength="15">
+                     <button></button>
+                </div>
+               
+            </div>
+        </div>
+        <div class="top_zhanwei"></div>
+        <div class="wrapper container">
+            <div class="infoFrame">
+                
+              <div class="col-lg-2 col-xs-12 userFrame frameGroup">
+            <div class="col-md-12 col-xs-5 userGroup">
+                <div class="usernameFrame">
+                    <span class="span1">你好，</span>
+                    <br>
+                    <span class="span2">{{username}}</span>
+                </div>
+            </div>
+             <!-- 卖家用注销 -->
+            <div class="col-md-12 col-xs-1 userGroup sellerLogoutFrame" >
+
+                <div :style="sellerDisplay">
+                    <button>注销</button>
+                </div>
+                <div   :style="buyerDisplay"></div>
+            </div>
+            <div class="col-md-12 col-xs-3 userGroup">
+                <div class="myordersFrame buttonGroup" >
+                    <button :style="'borderRadius:'+buttonRadius+'px'">我的订单</button>
+                </div>
+            </div>
+            <!-- 买家用注销，大按钮 -->
+            <div class="col-md-12 col-xs-3 userGroup" :style="buyerDisplay">
+                <div class="buyerLogoutFrame buttonGroup" >
+                    <button :style="'borderRadius:'+buttonRadius+'px'">退出登录</button>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-3 userGroup" :style="sellerDisplay">
+                <div class="myshopFrame buttonGroup">
+                    <button :style="'borderRadius:'+buttonRadius+'px'" @click="goShopManage()">我的店铺</button>
+                </div>
+            </div>
+              </div>
+              <div class="col-lg-8 col-xs-12 bannerFrame frameGroup">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img th:src="@{/images/banner_1.png}" alt=""></div>
+                    <div class="swiper-slide"><img th:src="@{/images/banner_1.png}" alt=""></div>
+                    <div class="swiper-slide"><img th:src="@{/images/banner_1.png}" alt=""></div>
+                </div>
+                  <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            
+              </div>
+              <div class="col-lg-2 col-xs-12 classFrame frameGroup">
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class0">女装</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class1">内衣</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class2">奢品</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class3">女鞋</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class4">男鞋</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class5">箱包</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class6">美妆</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class7">饰品</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class8">洗护</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class9">男装</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class10">运动</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class11">百货</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class12">手机</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class13">数码</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class14">企业</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class15">家装</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class16">电器</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class17">车品</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class18">食品</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class19">生鲜</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class20">母婴</a>  
+                </div>
+                <div class="col-md-12 col-xs-6 classContainer">
+                    <a href="#" id="class21">医药</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class22">保健</a>
+                    &nbsp | &nbsp
+                    <a href="#" id="class23">进口</a>  
+                </div>
+              </div>   
+            </div>
+            <hr>
+           <div class="col-xs-12 goodsFrame">
+            <ul>
+                <li class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="goods">
+                        <div class="goodsImg"><img :src="imagePath" alt="加载失败喵"></div>
+                        <div class="goodsInfo">
+                            <div class="goodsName">超美丽粑粑喜欢到疯干嘛啊啊啊啊啊</div>
+                            <div class="goodsOther">
+                                <span class="goodsPrice">5</span>
+                                <span class="goodsSales">销量：100&nbsp&nbsp&nbsp评价数：12</span>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </li>
+                <li class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="goods">
+                        <div class="goodsImg"><img th:src="@{/images/clothes_goods_1.jpg}" alt="加载失败喵"></div>
+                        <div class="goodsInfo">
+                            <div class="goodsName">超美丽粑粑喜欢到疯干嘛啊啊啊啊啊</div>
+                            <div class="goodsOther">
+                                <span class="goodsPrice">5</span>
+                                <span class="goodsSales">销量：100&nbsp&nbsp&nbsp评价数：12</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </li>
+                <li class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="goods">
+                        <div class="goodsImg"><img th:src="@{/images/clothes_goods_1.jpg}" alt="加载失败喵"></div>
+                        <div class="goodsInfo">
+                            <div class="goodsName">超美丽粑粑喜欢到疯干嘛啊啊啊啊啊</div>
+                            <div class="goodsOther">
+                                <span class="goodsPrice">5</span>
+                                <span class="goodsSales">销量：100&nbsp&nbsp&nbsp评价数：12</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </li>
+            </ul>
+           </div>
+         
+        </div>
+    </div>
+
+    <script>
+        
+new Vue(
+    {
+        el:'#root',
+        data() {
+            return {
+                hahatype:"",
+                username:"",
+                imagePath:"https://ts1.cn.mm.bing.net/th/id/R-C.f18341ead97a65cfc05a822a988d4f6a?rik=CQ28voXJDfPvYg&riu=http%3a%2f%2fpic.616pic.com%2fys_bnew_img%2f00%2f10%2f46%2fo717NLaCbU.jpg&ehk=lndVaHgnfykA8ea7o2I%2fjU8NfXoVwEL9I7sP29WMRPo%3d&risl=&pid=ImgRaw&r=0"
+
+            }
+        },
+        computed:{
+            isBuyer:function(){
+                let obj=cookietoObj(document.cookie);
+                this.username=obj.username;
+                if(obj.type=="1")//买家
+                return true;
+                else if(obj.type=="2")
+                return false;
+                else//未登录
+                {
+                   // document.location.href="http://localhost:8080/mall/login";
+                    return false;
+                }
+
+            },
+            buttonRadius:function(){
+                let bt=document.querySelector('.buttonGroup button');
+                return 0.5*bt.offsetHeight;
+            },
+            buyerDisplay:function(){
+                if(this.isBuyer)
+                {
+                    return "";
+                }
+                else
+                {
+                    return "display:none"
+                }
+
+            },
+            sellerDisplay:function(){
+                if(!this.isBuyer)
+                {
+                    return "";
+                }
+                else
+                {
+                    return "display:none"
+                }
+
+            }
+        },
+       
+        methods: {
+            goShopManage(){
+                document.location.href="http://localhost:8080/mall/shopManage";
+            },
+          haha(){
+            if(window.pageYOffset>100)
+             return "haha2";
+             else
+             return "haha1";
+          },
+        },
+        mounted(){
+        var mySwiper = new Swiper ('.swiper', {
+            direction: 'horizontal', // 垂直切换选项
+    loop: true, // 循环模式选项
+    
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+        })
+    },
+       
+
+    }
+)
+    </script>
+</body>
+</html>

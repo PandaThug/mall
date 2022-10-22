@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="stylesheet" href="../../static/css/goods.css">
+    <link rel="stylesheet" href="../../static/css/qingchu.css">
+   <!-- <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+        <link rel="stylesheet" th:href="@{/css/qingchu.css}">
+        <link rel="stylesheet" th:href="@{/css/login.css}">
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/vue.js}"></script>
+        <script  th:src="@{/js/swiper-bundle.min.js}"></script> -->
+        <script src="../../static/js/main.js"></script>
+    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/swiper-bundle.min.js"></script>
+    <title>商品占位符！！！！_网上商城</title>
+</head>
+<body>
+    <div id="root">
+        <div class="top container">
+            <div class="toprow">
+                <button class="backToIndex">返回首页</button>
+                <div class="goodsUserName">
+                    <div>
+                        <span class="span1">已登录，</span>
+                        <span class="span2">用户名占位</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top_zhanwei"></div>
+        
+        <div class="wrapper">
+            <div class="goodsInfo1 container">
+                  <div class="col-xs-12 col-md-6 imgFrame"><img :src="goodsImg" alt="加载失败喵"></div>
+                  <div class="col-xs-12 col-md-6 infoFrame">
+                    <div class="goods_goodsName">
+                        <span>{{goodsName}}</span>
+                    </div>
+                    <div class="goods_goodsPrice&Comments">
+                        <div class="col-xs-6 goods_goodsPrice">
+                            {{goodsPrice}}
+                        </div>
+                        <div class="col-xs-6 goods_goodsComments">
+                            销量：{{goodsSales}}&nbsp&nbsp&nbsp评价数：{{goodsComments}}
+                        </div>
+                    </div>
+                    <div class="orderInfo">
+                        <form action="" @submit.prevent="submit($event)">
+                            <div class="orderNum"><span>购买数量：</span><input type="text" oninput="value=value.replace(/[^\d]/g,'')" name="orderNum"></div>
+                            <div class="orderOption"><span>类别选择：</span>
+                            <select name="orderOption" id="">
+                                <option v-for="opt in optionsArray" :value="opt">{{opt}}</option>
+                            </select>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <script>
+        
+new Vue(
+    {
+        el:'#root',
+        data() {
+            return {
+               goodsImg:"https://ts1.cn.mm.bing.net/th/id/R-C.f18341ead97a65cfc05a822a988d4f6a?rik=CQ28voXJDfPvYg&riu=http%3a%2f%2fpic.616pic.com%2fys_bnew_img%2f00%2f10%2f46%2fo717NLaCbU.jpg&ehk=lndVaHgnfykA8ea7o2I%2fjU8NfXoVwEL9I7sP29WMRPo%3d&risl=&pid=ImgRaw&r=0",
+               goodsName:"超级可爱啊啊啊啊啊啊",
+               goodsPrice:"100",
+               goodsSales:"2",
+               goodsComments:"12",
+               goodsOptions:"l,s,m",//正式投入使用，这些都要事先转为空字符串
+               goodsDetail:"总之就是超级喜欢！"
+            }
+        },
+        computed:{
+            optionsArray:function(){
+                return optionstoArray(this.goodsOptions);
+            }
+        }
+
+    }
+)
+    </script>
+</body>
+</html>
