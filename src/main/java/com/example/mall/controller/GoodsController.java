@@ -9,7 +9,10 @@ import com.example.mall.utils.MallConstant;
 import com.example.mall.utils.MallUtil;
 import com.example.mall.utils.UploadPictureUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +28,14 @@ import java.util.UUID;
 @Controller
 public class GoodsController {
 
+    private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
+
+    @Value("${mall.path.upload}")
+    private String uploadPath;
+    @Value("${mall.path.domain}")
+    private String domain;
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
     @Autowired
     private GoodsService goodsService;
     @Autowired
@@ -34,31 +45,17 @@ public class GoodsController {
 
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(Model model, @RequestPart Good good, @RequestPart MultipartFile goodImg) throws IOException {
+    public String addGood(Model model, @RequestBody Good good){
 
         User user = hostHolder.getUser();
-        System.out.println(user);
 
+        // 空值处理
         if (user == null) {
             return MallUtil.getJSONString(403, "你还没有登录!");
         }
         if (!user.getType().equals("1")) {
             return MallUtil.getJSONString(403, "你没有商品管理权限!");
         }
-        if (goodImg == null) {
-            model.addAttribute("goodPictureMsg", "图片不能为空!");
-            return model.toString();
-        }
-        String fileName = goodImg.getOriginalFilename();
-        String suffix = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf("."));
-        if (StringUtils.isBlank(suffix)) {
-            model.addAttribute("error", "文件的格式不正确!");
-            return model.toString();
-        }
-
-        File tmp = File.createTempFile(UUID.randomUUID().toString().replace("-", ""), "tmp");
-        goodImg.transferTo(tmp);
-        good.setGoodPicture(UploadPictureUtil.enPic(tmp));
 
         Map<String, Object> storeByUserId = storeService.findStoreByUserId(user.getId());
         String storeName = (String) storeByUserId.get("storeName");

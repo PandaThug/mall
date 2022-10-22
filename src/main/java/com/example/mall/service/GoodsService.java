@@ -35,7 +35,7 @@ public class GoodsService {
             map.put("goodPriceMsg", "商品价格不能为零!");
             return map;
         }
-        if (good.getGoodPicture() == null) {
+        if (StringUtils.isBlank(good.getGoodPicture())) {
             map.put("goodPictureMsg", "商品图片未上传!");
             return map;
         }

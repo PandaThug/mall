@@ -28,7 +28,7 @@ CREATE TABLE `goods` (
     `good_introduction` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品详情
     `good_sales` INT(11) NOT NULL,  # 商品销量
     `good_options` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
-    `good_picture` BLOB(64000),  # 商品图片
+    `good_picture` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品图片
     `good_store` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 所属店铺
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;

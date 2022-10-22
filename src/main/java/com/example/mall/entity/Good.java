@@ -11,11 +11,11 @@ public class Good {
     private String goodIntroduction;
     private int goodSales;
     private String goodOptions;
-    private byte[] goodPicture;
+    private String goodPicture;
     private String goodStore;
 
     public Good(int id, String goodName, int goodPrice, String goodCategory, String goodIntroduction,
-                int goodSales, String goodOptions, byte[] goodPicture, String goodStore) {
+                int goodSales, String goodOptions, String goodPicture, String goodStore) {
         this.id = id;
         this.goodName = goodName;
         this.goodPrice = goodPrice;
@@ -83,11 +83,11 @@ public class Good {
         this.goodOptions = goodOptions;
     }
 
-    public byte[] getGoodPicture() {
+    public String getGoodPicture() {
         return goodPicture;
     }
 
-    public void setGoodPicture(byte[] goodPicture) {
+    public void setGoodPicture(String goodPicture) {
         this.goodPicture = goodPicture;
     }
 
@@ -105,11 +105,11 @@ public class Good {
                 "id=" + id +
                 ", goodName='" + goodName + '\'' +
                 ", goodPrice=" + goodPrice +
-                ", goodCategory=" + goodCategory +
+                ", goodCategory='" + goodCategory + '\'' +
                 ", goodIntroduction='" + goodIntroduction + '\'' +
                 ", goodSales=" + goodSales +
                 ", goodOptions='" + goodOptions + '\'' +
-                ", goodPicture=" + Arrays.toString(goodPicture) +
+                ", goodPicture='" + goodPicture + '\'' +
                 ", goodStore='" + goodStore + '\'' +
                 '}';
     }
