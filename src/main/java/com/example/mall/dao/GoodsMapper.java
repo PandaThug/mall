@@ -1,6 +1,7 @@
 package com.example.mall.dao;
 
 import com.example.mall.entity.Good;
+import com.example.mall.entity.Store;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,7 +24,7 @@ public interface GoodsMapper {
 
     // 按照商品销量排序
     // id, good_name, good_price, good_category, good_introduction, good_sales
-    List<Good> SelectGoodBySales();
+    List<Good> selectGoodBySales();
 
     // good_name, good_price, good_category, good_introduction, good_sales, good_options
     int insertGood(Good good);

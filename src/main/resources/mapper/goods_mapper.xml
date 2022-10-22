@@ -32,11 +32,12 @@
         where good_category = #{goodCategory}
     </select>
 
-    <select id="SelectGoodBySales" resultType="com.example.mall.entity.Good">
+    <select id="selectGoodBySales" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
             good_store, good_comment_count
         from goods
-        order by good_sales
+        order by good_sales desc, id desc
+        limit 0,24
     </select>
 
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
@@ -52,5 +53,16 @@
         update goods set good_price = #{goodPrice} where id = #{id}
     </update>
 
+    <delete id="deleteGoodById">
+        delete from goods where id = #{id}
+    </delete>
+
+    <delete id="deleteGoodsByIds">
+        delete from goods where id in (
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+        )
+    </delete>
 
 </mapper>

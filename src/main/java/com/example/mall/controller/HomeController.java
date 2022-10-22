@@ -1,8 +1,11 @@
 package com.example.mall.controller;
 
+import com.example.mall.entity.Good;
 import com.example.mall.entity.Page;
+import com.example.mall.entity.Store;
 import com.example.mall.entity.User;
 import com.example.mall.service.GoodsService;
+import com.example.mall.service.StoreService;
 import com.example.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +26,19 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private StoreService storeService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String getIndexPage() {
+    public String getIndexPage(Model model) {
+        List<Good> goods = storeService.findGoodsByGoodSales();
+        if (goods != null) {
+            for (Good good : goods) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("good", good);
+            }
+        }
+        model.addAttribute("goods", goods);
         return "/index";
     }
 

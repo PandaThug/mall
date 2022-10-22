@@ -90,4 +90,9 @@ public class StoreService {
         return goodsMapper.selectGoodsByStoreId(storeId);
     }
 
+    // 根据销量查询前24位的商品
+    public List<Good> findGoodsByGoodSales() {
+        return goodsMapper.selectGoodBySales();
+    }
+
 }
