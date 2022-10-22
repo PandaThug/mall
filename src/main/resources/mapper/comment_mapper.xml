@@ -7,6 +7,6 @@
     <select id="selectCommentCountOfGood" resultType="int">
         select count(*)
         from comment
-        where comment_store = #{storeId}
+        where comment_store_id = #{storeId} and comment_good_id = #{goodId}
     </select>
 </mapper>

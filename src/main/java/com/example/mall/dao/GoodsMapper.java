@@ -9,11 +9,13 @@ import java.util.List;
 @Mapper
 public interface GoodsMapper {
 
-    // id, good_name, good_price, good_category, good_introduction, good_sales
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
     Good selectGoodById(@Param("id") int id);
 
-    // id, good_name, good_price, good_category, good_introduction, good_sales
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
     Good selectGoodByName(@Param("goodName") String goodName);
+
+    List<Good> selectGoodsByStoreId(@Param("storeId") int storeId);
 
     // id, good_name, good_price, good_category, good_introduction, good_sales
     List<Good> selectGoodByCategory(@Param("goodCategory") String goodCategory);

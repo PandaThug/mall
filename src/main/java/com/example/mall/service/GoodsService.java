@@ -60,9 +60,4 @@ public class GoodsService {
 
     }
 
-    public List<Good> getGoods(int storeId) {
-        // TODO
-        return null;
-    }
-
 }

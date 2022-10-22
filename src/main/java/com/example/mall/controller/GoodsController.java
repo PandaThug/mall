@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class GoodsController {
 
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(Model model, String goodName, String goodCategory, int goodPrice, String goodImg,
+    public String addGood(Model model, String goodName, String goodCategory, String goodPrice, String goodImg,
                           String goodOptions, String goodDetails){
 
         User user = hostHolder.getUser();
@@ -61,8 +62,9 @@ public class GoodsController {
         Map<String, Object> storeByUserId = storeService.findStoreByUserId(user.getId());
         String storeName = (String) storeByUserId.get("storeName");
         int storeId = storeService.findStoreIdByName(storeName);
+        int price = Integer.parseInt(goodPrice);
 
-        Good good = new Good(1, goodName, goodPrice, goodCategory, goodDetails, 0, goodOptions, goodImg, storeName);
+        Good good = new Good(0, goodName, price, goodCategory, goodDetails, 0, goodOptions, goodImg, storeId, 0);
 
         Map<String, Object> map = goodsService.addGoods(good);
 
@@ -75,6 +77,21 @@ public class GoodsController {
             model.addAttribute("goodOptionsMsg", map.get("goodOptionsMsg"));
             model.addAttribute("goodInstructionMsg", map.get("goodInstructionMsg"));
         }
+
+        return model.toString();
+
+    }
+
+    @RequestMapping(path = "/goodManage/get", method = RequestMethod.GET)
+    @ResponseBody
+    public String listGoods(Model model, int storeId) {
+
+        List<Good> goods = storeService.findGoodsByStoreId(storeId);
+
+        for (int i = 0; i < goods.size(); i++) {
+            model.addAttribute("good" + i, goods.get(i));
+        }
+
 
         return model.toString();
 

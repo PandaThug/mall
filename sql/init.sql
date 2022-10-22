@@ -29,7 +29,8 @@ CREATE TABLE `goods` (
     `good_sales` INT(11) NOT NULL,  # 商品销量
     `good_options` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
     `good_picture` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品图片
-    `good_store` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 所属店铺
+    `good_store` INT(11) NOT NULL,  # 所属店铺
+    `good_comment_count` INT(11) NOT NULL,  # 商品评价数
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
@@ -73,6 +74,6 @@ CREATE TABLE `comment` (
     `comment_score` INT(5) NOT NULL,  # 评价分数
     `comment_content` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 评价内容
     `comment_store_id` INT(11) NOT NULL,  # 评价对应的店铺
-    `comment_good_id` INT(11) NOT NULL,  # 相应店铺里的商品
+    `comment_good_id` INT(11) NOT NULL,  # 评价对应店铺里的商品
     PRIMARY KEY (`id`) USING BTREE
 )ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;

@@ -12,10 +12,11 @@ public class Good {
     private int goodSales;
     private String goodOptions;
     private String goodPicture;
-    private String goodStore;
+    private int goodStore;
+    private int goodCommentCount;
 
     public Good(int id, String goodName, int goodPrice, String goodCategory, String goodIntroduction,
-                int goodSales, String goodOptions, String goodPicture, String goodStore) {
+                int goodSales, String goodOptions, String goodPicture, int goodStore, int goodCommentCount) {
         this.id = id;
         this.goodName = goodName;
         this.goodPrice = goodPrice;
@@ -25,6 +26,7 @@ public class Good {
         this.goodOptions = goodOptions;
         this.goodPicture = goodPicture;
         this.goodStore = goodStore;
+        this.goodCommentCount = goodCommentCount;
     }
 
     public int getId() {
@@ -91,12 +93,20 @@ public class Good {
         this.goodPicture = goodPicture;
     }
 
-    public String getGoodStore() {
+    public int getGoodStore() {
         return goodStore;
     }
 
-    public void setGoodStore(String goodStore) {
+    public void setGoodStore(int goodStore) {
         this.goodStore = goodStore;
+    }
+
+    public int getGoodCommentCount() {
+        return goodCommentCount;
+    }
+
+    public void setGoodCommentCount(int goodCommentCount) {
+        this.goodCommentCount = goodCommentCount;
     }
 
     @Override
@@ -111,6 +121,7 @@ public class Good {
                 ", goodOptions='" + goodOptions + '\'' +
                 ", goodPicture='" + goodPicture + '\'' +
                 ", goodStore='" + goodStore + '\'' +
+                ", goodCommentCount=" + goodCommentCount +
                 '}';
     }
 

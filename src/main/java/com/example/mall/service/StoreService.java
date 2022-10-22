@@ -1,13 +1,17 @@
 package com.example.mall.service;
 
+import com.example.mall.dao.CommentMapper;
+import com.example.mall.dao.GoodsMapper;
 import com.example.mall.dao.StoreMapper;
 import com.example.mall.dao.UserMapper;
+import com.example.mall.entity.Good;
 import com.example.mall.entity.Store;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,6 +21,10 @@ public class StoreService {
     private StoreMapper storeMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private GoodsMapper goodsMapper;
 
     // 修改店铺名称
     public Map<String, Object> changeStoreName(Integer storeId, String storeName) {
@@ -75,6 +83,11 @@ public class StoreService {
     // 根据店铺名称查询店铺编号
     public int findStoreIdByName(String storeName) {
         return storeMapper.selectStoreIdByName(storeName);
+    }
+
+    // 根据店铺编号查询所有商品
+    public List<Good> findGoodsByStoreId(int storeId) {
+        return goodsMapper.selectGoodsByStoreId(storeId);
     }
 
 }
