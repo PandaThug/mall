@@ -30,15 +30,7 @@ public class HomeController {
     private StoreService storeService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String getIndexPage(Model model) {
-        List<Good> goods = storeService.findGoodsByGoodSales();
-        if (goods != null) {
-            for (Good good : goods) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("good", good);
-            }
-        }
-        model.addAttribute("goods", goods);
+    public String getIndexPage() {
         return "/index";
     }
 
