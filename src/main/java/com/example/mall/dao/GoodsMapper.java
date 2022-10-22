@@ -32,4 +32,10 @@ public interface GoodsMapper {
 
     int updateGoodPrice(@Param("id") int id, @Param("goodPrice") int goodPrice);
 
+    // 根据商品id删除对应商品
+    int deleteGoodById(@Param("id") int id);
+
+    // 根据多个商品id删除多个商品
+    int deleteGoodsByIds(@Param("ids") int[] ids);
+
 }

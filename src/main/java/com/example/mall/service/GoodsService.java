@@ -60,4 +60,14 @@ public class GoodsService {
 
     }
 
+    // 根据商品id删除对应商品
+    public int deleteGoodByGoodId(int goodId) {
+        return goodsMapper.deleteGoodById(goodId);
+    }
+
+    // 根据多个商品id删除多个商品
+    public int deleteGoodsByGoodsIds(int[] goodsIds) {
+        return goodsMapper.deleteGoodsByIds(goodsIds);
+    }
+
 }

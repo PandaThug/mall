@@ -1,13 +1,11 @@
 package com.example.mall.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.mall.entity.Good;
 import com.example.mall.entity.User;
 import com.example.mall.service.GoodsService;
 import com.example.mall.service.StoreService;
-import com.example.mall.utils.HostHolder;
-import com.example.mall.utils.MallConstant;
-import com.example.mall.utils.MallUtil;
-import com.example.mall.utils.UploadPictureUtil;
+import com.example.mall.utils.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +42,7 @@ public class GoodsController {
     @Autowired
     private StoreService storeService;
 
+    // 添加商品
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(Model model, String goodName, String goodType, String goodPrice, String goodImg,
@@ -82,6 +81,7 @@ public class GoodsController {
 
     }
 
+    // 获取商品列表
     @RequestMapping(path = "/goodManage/get", method = RequestMethod.GET)
     @ResponseBody
     public String listGoods(Model model, int storeId) {
@@ -92,6 +92,28 @@ public class GoodsController {
             model.addAttribute("good" + i, goods.get(i));
         }
 
+        return model.toString();
+
+    }
+
+    // 根据商品id删除商品
+    @RequestMapping(path = "/goodManage/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteGoods(Model model, @RequestBody String goodId) {
+
+        String id = JSON.parseObject(goodId).getString("goodId");
+
+        if (NumUtil.isNumeric(id)) {
+            int i = Integer.parseInt(id);
+            int num = goodsService.deleteGoodByGoodId(i);
+            if (num != 0) {
+                model.addAttribute("msg", "删除成功!");
+            } else {
+                model.addAttribute("msg", "商品不存在!");
+            }
+        } else {
+            model.addAttribute("msg", "商品编号不是数字!");
+        }
 
         return model.toString();
 
