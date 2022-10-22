@@ -46,7 +46,7 @@ public class GoodsController {
 
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(Model model, String goodName, String goodCategory, String goodPrice, String goodImg,
+    public String addGood(Model model, String goodName, String goodType, String goodPrice, String goodImg,
                           String goodOptions, String goodDetails){
 
         User user = hostHolder.getUser();
@@ -64,7 +64,7 @@ public class GoodsController {
         int storeId = storeService.findStoreIdByName(storeName);
         int price = Integer.parseInt(goodPrice);
 
-        Good good = new Good(0, goodName, price, goodCategory, goodDetails, 0, goodOptions, goodImg, storeId, 0);
+        Good good = new Good(0, goodName, price, goodType, goodDetails, 0, goodOptions, goodImg, storeId, 0);
 
         Map<String, Object> map = goodsService.addGoods(good);
 

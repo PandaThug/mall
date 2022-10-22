@@ -15,6 +15,7 @@ public interface GoodsMapper {
     // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
     Good selectGoodByName(@Param("goodName") String goodName);
 
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
     List<Good> selectGoodsByStoreId(@Param("storeId") int storeId);
 
     // id, good_name, good_price, good_category, good_introduction, good_sales
