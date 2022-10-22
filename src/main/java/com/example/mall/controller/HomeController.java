@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +43,16 @@ public class HomeController {
     @RequestMapping(path = "/denied", method = RequestMethod.GET)
     public String getDeniedPage() {
         return "/error/404";
+    }
+
+    @RequestMapping(path = "/addToIndex", method = RequestMethod.GET)
+    @ResponseBody
+    public String addGoodsToIndex(Model model) {
+        List<Good> goods = storeService.findGoodsByGoodSales();
+        for (int i = 0; i < goods.size(); i++) {
+            model.addAttribute("good" + i, goods.get(i));
+        }
+        return model.toString();
     }
 
 }
