@@ -86,11 +86,10 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
-    public String logout(@CookieValue("ticket")String ticket) {
+    public void logout(@CookieValue("ticket")String ticket) {
 
         userService.logout(ticket);
 //        SecurityContextHolder.clearContext();
-        return "redirect:/login";   // 默认GET请求的/login
 
     }
 
