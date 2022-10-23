@@ -23,6 +23,7 @@
             good_store, good_comment_count
         from goods
         where good_store = #{storeId}
+        order by id desc
     </select>
 
     <select id="selectGoodByCategory" resultType="com.example.mall.entity.Good">
@@ -30,6 +31,18 @@
             good_store, good_comment_count
         from goods
         where good_category = #{goodCategory}
+    </select>
+
+    <select id="selectStoreIdByGoodId" resultType="int">
+        select good_store
+        from goods
+        where id = #{goodId}
+    </select>
+
+    <select id="selectPriceByGoodId" resultType="int">
+        select good_price
+        from goods
+        where id = #{goodId}
     </select>
 
     <select id="selectGoodBySales" resultType="com.example.mall.entity.Good">

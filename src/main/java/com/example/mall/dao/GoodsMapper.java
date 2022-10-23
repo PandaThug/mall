@@ -22,6 +22,12 @@ public interface GoodsMapper {
     // id, good_name, good_price, good_category, good_introduction, good_sales
     List<Good> selectGoodByCategory(@Param("goodCategory") String goodCategory);
 
+    // 查询商品所在店铺的编号
+    int selectStoreIdByGoodId(@Param("goodId") int goodId);
+
+    // 根据商品id查询商品单价
+    int selectPriceByGoodId(@Param("goodId") int goodId);
+
     // 按照商品销量排序
     // id, good_name, good_price, good_category, good_introduction, good_sales
     List<Good> selectGoodBySales();

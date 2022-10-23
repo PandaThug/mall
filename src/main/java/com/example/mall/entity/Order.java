@@ -6,23 +6,27 @@ public class Order {
 
     private int orderId;
     private int userId;
+    private int shopId;
     private int goodId;
     private int purchaseQuantity;
+    private int totalPrice;
     private String goodName;
-    private Date orderTime;
-    private int orderStatus;  // 0-未完成; 1-已完成未评价; 2-已完成已评价
+    private String goodOption;
+    private int orderStatus;  // 0-未完成; 1-已发货; 2-已收货; 3-待评价; 4-已评价
     private String address;
     private int telNumber;
     private String buyerName;
 
-    public Order(int orderId, int userId, int goodId, int purchaseQuantity, String goodName,
-                 Date orderTime, int orderStatus, String address, int telNumber, String buyerName) {
+    public Order(int orderId, int userId, int shopId, int goodId, int purchaseQuantity, int totalPrice, String goodName,
+                 String goodOption, int orderStatus, String address, int telNumber, String buyerName) {
         this.orderId = orderId;
         this.userId = userId;
+        this.shopId = shopId;
         this.goodId = goodId;
         this.purchaseQuantity = purchaseQuantity;
+        this.totalPrice = totalPrice;
         this.goodName = goodName;
-        this.orderTime = orderTime;
+        this.goodOption = goodOption;
         this.orderStatus = orderStatus;
         this.address = address;
         this.telNumber = telNumber;
@@ -45,6 +49,14 @@ public class Order {
         this.userId = userId;
     }
 
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
     public int getGoodId() {
         return goodId;
     }
@@ -61,6 +73,14 @@ public class Order {
         this.purchaseQuantity = purchaseQuantity;
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public String getGoodName() {
         return goodName;
     }
@@ -69,12 +89,12 @@ public class Order {
         this.goodName = goodName;
     }
 
-    public Date getOrderTime() {
-        return orderTime;
+    public String getGoodOption() {
+        return goodOption;
     }
 
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public void setGoodOption(String goodOption) {
+        this.goodOption = goodOption;
     }
 
     public int getOrderStatus() {
@@ -114,10 +134,12 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", userId=" + userId +
+                ", shopId=" + shopId +
                 ", goodId=" + goodId +
                 ", purchaseQuantity=" + purchaseQuantity +
+                ", totalPrice=" + totalPrice +
                 ", goodName='" + goodName + '\'' +
-                ", orderTime=" + orderTime +
+                ", goodOption='" + goodOption + '\'' +
                 ", orderStatus=" + orderStatus +
                 ", address='" + address + '\'' +
                 ", telNumber=" + telNumber +

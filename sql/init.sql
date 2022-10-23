@@ -56,9 +56,10 @@ CREATE TABLE `order` (
     `shop_id` INT(11) NOT NULL,  # 店铺编号
     `good_id` INT(11) NOT NULL,  # 商品编号
     `purchase_quantity` INT(11) NOT NULL,  # 购买数量
+    `total_price` INT(11) NOT NULL,  # 订单总金额
     `good_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品名称
-    `order_time` TIMESTAMP NULL DEFAULT NULL,  # 下单时间
-    `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-未完成; 1-已完成未评价; 2-已完成已评价;',  # 订单状态
+    `good_option` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
+    `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-未完成; 1-已发货; 2-已收货; 3-待评价; 4-已评价',  # 订单状态
     `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 收货地址
     `tel_number` INT(11) NOT NULL,  # 买方电话
     `buyer_name` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方名称
