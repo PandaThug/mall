@@ -65,4 +65,9 @@ public class HomeController {
         return "/site/shop";
     }
 
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public String getSearchPage() {
+        return "/site/search";
+    }
+
 }

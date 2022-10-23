@@ -53,6 +53,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
     `order_id` INT(11) NOT NULL AUTO_INCREMENT,  # 订单编号
     `user_id` INT(11) NOT NULL,  # 用户编号
+    `shop_id` INT(11) NOT NULL,  # 店铺编号
     `good_id` INT(11) NOT NULL,  # 商品编号
     `purchase_quantity` INT(11) NOT NULL,  # 购买数量
     `good_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品名称
