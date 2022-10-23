@@ -19,11 +19,11 @@ public class OrderController {
 
     @RequestMapping(value = "/orderManage/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addOrder(Model model, String oderGoodsName, String orderGoodsId, String orderOption, String orderNum,
+    public String addOrder(Model model, String orderGoodsName, String orderGoodsId, String orderOption, String orderNum,
                            String orderBuyerName, String orderBuyerAddress, String orderBuyerPhoneNumber) {
 
         Order order = new Order(0, 0, 0, Integer.parseInt(orderGoodsId), Integer.parseInt(orderNum),
-                0, oderGoodsName, orderOption, 0, orderBuyerAddress,
+                0, orderGoodsName, orderOption, 0, orderBuyerAddress,
                 Integer.parseInt(orderBuyerPhoneNumber), orderBuyerName);
 
         Map<String, Object> map = orderService.addOrder(order);
