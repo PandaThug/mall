@@ -14,11 +14,11 @@ public class Order {
     private String goodOption;
     private int orderStatus;  // 0-未完成; 1-已发货; 2-已收货; 3-待评价; 4-已评价
     private String address;
-    private int telNumber;
+    private String telNumber;
     private String buyerName;
 
     public Order(int orderId, int userId, int shopId, int goodId, int purchaseQuantity, int totalPrice, String goodName,
-                 String goodOption, int orderStatus, String address, int telNumber, String buyerName) {
+                 String goodOption, int orderStatus, String address, String telNumber, String buyerName) {
         this.orderId = orderId;
         this.userId = userId;
         this.shopId = shopId;
@@ -113,11 +113,11 @@ public class Order {
         this.address = address;
     }
 
-    public int getTelNumber() {
+    public String getTelNumber() {
         return telNumber;
     }
 
-    public void setTelNumber(int telNumber) {
+    public void setTelNumber(String telNumber) {
         this.telNumber = telNumber;
     }
 
@@ -142,7 +142,7 @@ public class Order {
                 ", goodOption='" + goodOption + '\'' +
                 ", orderStatus=" + orderStatus +
                 ", address='" + address + '\'' +
-                ", telNumber=" + telNumber +
+                ", telNumber='" + telNumber + '\'' +
                 ", buyerName='" + buyerName + '\'' +
                 '}';
     }

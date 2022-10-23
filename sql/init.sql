@@ -61,7 +61,7 @@ CREATE TABLE `order` (
     `good_option` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
     `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-待发货; 1-待收货; 2-待评价; 3-已完成;',  # 订单状态
     `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 收货地址
-    `tel_number` INT(13) NOT NULL,  # 买方电话
+    `tel_number` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方电话
     `buyer_name` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方名称
     PRIMARY KEY (`order_id`) USING BTREE
 )ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;

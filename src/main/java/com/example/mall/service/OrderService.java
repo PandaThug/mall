@@ -38,7 +38,7 @@ public class OrderService {
             map.put("buyerNameMsg", "未填写收货人姓名!");
             return map;
         }
-        if (order.getTelNumber() == 0) {
+        if (StringUtils.isBlank(order.getTelNumber())) {
             map.put("buyerPhoneMsg", "未填写收货人电话号码!");
             return map;
         }

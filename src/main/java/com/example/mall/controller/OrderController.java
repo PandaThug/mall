@@ -35,7 +35,7 @@ public class OrderController {
 
         Order order = new Order(0, Integer.parseInt(buyerId), 0, Integer.parseInt(orderGoodsId),
                 Integer.parseInt(orderNum), 0, orderGoodsName, orderOption, 0, orderBuyerAddress,
-                Integer.parseInt(orderBuyerPhoneNumber), orderBuyerName);
+                orderBuyerPhoneNumber, orderBuyerName);
 
         Map<String, Object> map = orderService.addOrder(order);
 
