@@ -9,4 +9,17 @@
         values (#{orderId},#{userId},#{shopId},#{goodId},#{purchaseQuantity},#{totalPrice},#{goodName},#{goodOption},#{orderStatus},#{address},#{telNumber},#{buyerName})
     </insert>
 
+    <select id="selectOrdersByUserId" resultType="com.example.mall.entity.Order">
+        select order_id, user_id, shop_id, good_id, purchase_quantity, total_price, good_name, good_option, order_status, address, tel_number, buyer_name
+        from `order`
+        where user_id = #{userId}
+        order by order_id desc
+    </select>
+
+    <select id="selectOrdersByShopId" resultType="com.example.mall.entity.Order">
+        select order_id, user_id, shop_id, good_id, purchase_quantity, total_price, good_name, good_option, order_status, address, tel_number, buyer_name
+        from `order`
+        where shop_id = #{shopId}
+        order by order_id desc
+    </select>
 </mapper>
