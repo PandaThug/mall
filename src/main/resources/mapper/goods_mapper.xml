@@ -86,4 +86,11 @@
         )
     </delete>
 
+    <update id="updateGoodSalesById">
+        update goods set good_sales = good_sales + #{sales} where id = #{id}
+    </update>
+
+    <update id="updateGoodCommentsCountByGoodId">
+        update goods set good_comment_count = good_comment_count + 1 where id = #{id}
+    </update>
 </mapper>

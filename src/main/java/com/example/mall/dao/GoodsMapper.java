@@ -48,4 +48,10 @@ public interface GoodsMapper {
     // 根据多个商品id删除多个商品
     int deleteGoodsByIds(@Param("ids") int[] ids);
 
+    // 根据商品id更新商品的销量
+    int updateGoodSalesById(@Param("id") int id, @Param("sales") int sales);
+
+    // 根据商品id更新商品评价数量
+    int updateGoodCommentsCountByGoodId(@Param("id") int id);
+
 }

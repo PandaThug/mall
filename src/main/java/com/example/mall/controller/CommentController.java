@@ -2,6 +2,7 @@ package com.example.mall.controller;
 
 import com.example.mall.entity.Comment;
 import com.example.mall.service.CommentService;
+import com.example.mall.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private GoodsService goodsService;
 
     @RequestMapping(path = "/commentManage/add", method = RequestMethod.POST)
     @ResponseBody
@@ -27,7 +30,7 @@ public class CommentController {
 
         if (map == null || map.isEmpty()) {
             model.addAttribute("msg", "评论成功!");
-
+            goodsService.changeGoodCommentsCountByOrderId(Integer.parseInt(orderId));
         } else {
             model.addAttribute("msg", map.get("msg"));
         }

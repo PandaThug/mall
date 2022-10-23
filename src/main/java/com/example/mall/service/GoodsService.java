@@ -1,6 +1,7 @@
 package com.example.mall.service;
 
 import com.example.mall.dao.GoodsMapper;
+import com.example.mall.dao.OrderMapper;
 import com.example.mall.entity.Good;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ public class GoodsService {
 
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     // 添加商品
     public Map<String, Object> addGoods(Good good) {
@@ -73,6 +76,17 @@ public class GoodsService {
     // 根据商品id查询商品
     public Good findGoodById(int goodsId) {
         return goodsMapper.selectGoodById(goodsId);
+    }
+
+    // 根据商品id更新商品的销量
+    public int changeGoodSalesById(int id, int sales) {
+        return goodsMapper.updateGoodSalesById(id, sales);
+    }
+
+    // 根据订单id将对应商品的评价数加一
+    public int changeGoodCommentsCountByOrderId(int orderId) {
+        int goodId = orderMapper.selectGoodIdByOrderId(orderId);
+        return goodsMapper.updateGoodCommentsCountByGoodId(goodId);
     }
 
 }

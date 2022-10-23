@@ -3,6 +3,7 @@ package com.example.mall.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.mall.entity.Good;
 import com.example.mall.entity.Order;
+import com.example.mall.service.GoodsService;
 import com.example.mall.service.OrderService;
 import org.apache.ibatis.ognl.ObjectElementsAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private GoodsService goodsService;
 
+    // 下单
     @RequestMapping(value = "/orderManage/add", method = RequestMethod.POST)
     @ResponseBody
     public String addOrder(Model model, String orderGoodsName, String orderGoodsId, String orderOption, String orderNum,
@@ -37,6 +41,7 @@ public class OrderController {
 
         if (map == null || map.isEmpty()) {
             model.addAttribute("msg", "下单成功!");
+            goodsService.changeGoodSalesById(Integer.parseInt(orderGoodsId), Integer.parseInt(orderNum));
         } else {
             model.addAttribute("buyerNameMsg", map.get("buyerNameMsg"));
             model.addAttribute("buyerPhoneMsg", map.get("buyerPhoneMsg"));

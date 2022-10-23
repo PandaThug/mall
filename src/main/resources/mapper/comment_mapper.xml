@@ -21,4 +21,5 @@
         where comment_good_id = #{goodsId}
         order by id desc
     </select>
+
 </mapper>
