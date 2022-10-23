@@ -50,7 +50,6 @@ public class OrderService {
         int storeId = goodsMapper.selectStoreIdByGoodId(goodId);
 
         order.setOrderId(0);
-        order.setUserId(user.getId());
         order.setShopId(storeId);
         order.setTotalPrice(order.getPurchaseQuantity() * goodsMapper.selectPriceByGoodId(goodId));
         order.setOrderStatus(0);

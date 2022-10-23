@@ -28,4 +28,15 @@
         set order_status = order_status + 1 where order_id = #{orderId}
     </update>
 
+    <select id="selectGoodIdByOrderId" resultType="int">
+        select good_id
+        from `order`
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectStoreIdByOrderId" resultType="int">
+        select shop_id
+        from `order`
+        where order_id = #{orderId}
+    </select>
 </mapper>

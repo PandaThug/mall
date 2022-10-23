@@ -5,15 +5,13 @@ import java.util.Date;
 public class Comment {
 
     private int commentId;
-    private Date commentTime;
     private int commentScore;
     private String commentContent;
     private int commentStore;
     private int commentGood;
 
-    public Comment(int commentId, Date commentTime, int commentScore, String commentContent, int commentStore, int commentGood) {
+    public Comment(int commentId, int commentScore, String commentContent, int commentStore, int commentGood) {
         this.commentId = commentId;
-        this.commentTime = commentTime;
         this.commentScore = commentScore;
         this.commentContent = commentContent;
         this.commentStore = commentStore;
@@ -26,14 +24,6 @@ public class Comment {
 
     public void setCommentId(int commentId) {
         this.commentId = commentId;
-    }
-
-    public Date getCommentTime() {
-        return commentTime;
-    }
-
-    public void setCommentTime(Date commentTime) {
-        this.commentTime = commentTime;
     }
 
     public int getCommentScore() {
@@ -72,7 +62,6 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "commentId=" + commentId +
-                ", commentTime=" + commentTime +
                 ", commentScore=" + commentScore +
                 ", commentContent='" + commentContent + '\'' +
                 ", commentStore=" + commentStore +

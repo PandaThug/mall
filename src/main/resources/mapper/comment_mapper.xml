@@ -9,4 +9,9 @@
         from comment
         where comment_store_id = #{storeId} and comment_good_id = #{goodId}
     </select>
+
+    <insert id="insertComment" parameterType="com.example.mall.entity.Comment">
+        insert into comment (id, comment_score, comment_content, comment_store_id, comment_good_id)
+        values (#{commentId},#{commentScore},#{commentContent},#{commentStore},#{commentGood})
+    </insert>
 </mapper>

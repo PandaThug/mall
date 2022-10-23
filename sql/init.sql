@@ -72,7 +72,6 @@ CREATE TABLE `order` (
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,  # 评价编号
-    `comment_time` TIMESTAMP NULL DEFAULT NULL,  # 评价时间
     `comment_score` INT(5) NOT NULL,  # 评价分数
     `comment_content` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 评价内容
     `comment_store_id` INT(11) NOT NULL,  # 评价对应的店铺
