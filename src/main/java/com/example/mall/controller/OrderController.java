@@ -58,6 +58,7 @@ public class OrderController {
         Map<String, Object> map = new HashMap<>();
 
         for (Order order : orders) {
+            map.put("orderId", order.getOrderId());
             map.put("buyerId", order.getUserId());
             map.put("shopId", order.getShopId());
             map.put("goodsId", order.getGoodId());
