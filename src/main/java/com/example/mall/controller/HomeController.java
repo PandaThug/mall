@@ -55,4 +55,9 @@ public class HomeController {
         return model.toString();
     }
 
+    @RequestMapping(path = "/goods", method = RequestMethod.GET)
+    public String getGoodsPage() {
+        return "/site/goods";
+    }
+
 }
