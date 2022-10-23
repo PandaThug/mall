@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -38,6 +39,11 @@ public class CommentService {
 
         return map;
 
+    }
+
+    // 根据商品id获取商品评价列表
+    public List<Comment> findCommentsByGoodsId(int goodId) {
+        return commentMapper.selectCommentsByGoodsId(goodId);
     }
 
 }

@@ -14,4 +14,11 @@
         insert into comment (id, comment_score, comment_content, comment_store_id, comment_good_id)
         values (#{commentId},#{commentScore},#{commentContent},#{commentStore},#{commentGood})
     </insert>
+
+    <select id="selectCommentsByGoodsId" resultType="com.example.mall.entity.Comment">
+        select id, comment_score, comment_content, comment_store_id, comment_good_id
+        from comment
+        where comment_good_id = #{goodsId}
+        order by id desc
+    </select>
 </mapper>
