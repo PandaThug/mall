@@ -82,7 +82,7 @@ public class GoodsController {
     }
 
     // 获取商品列表
-    @RequestMapping(path = "/goodManage/get", method = RequestMethod.GET)
+    @RequestMapping(path = "/goodManage/getAll", method = RequestMethod.GET)
     @ResponseBody
     public String listGoods(Model model, int storeId) {
 
@@ -91,6 +91,28 @@ public class GoodsController {
         for (int i = 0; i < goods.size(); i++) {
             model.addAttribute("good" + i, goods.get(i));
         }
+
+        return model.toString();
+
+    }
+
+    // 根据商品id获取商品
+    @RequestMapping(path = "/goodManage/get", method = RequestMethod.GET)
+    @ResponseBody
+    public String findGood(Model model, int goodsId) {
+
+        Good good = goodsService.findGoodById(goodsId);
+
+        model.addAttribute("goodId", good.getId());
+        model.addAttribute("goodName", good.getGoodName());
+        model.addAttribute("goodPrice", good.getGoodPrice());
+        model.addAttribute("goodCategory", good.getGoodCategory());
+        model.addAttribute("goodIntroduction", good.getGoodIntroduction());
+        model.addAttribute("goodSales", good.getGoodSales());
+        model.addAttribute("goodOptions", good.getGoodOptions());
+        model.addAttribute("goodPicture", good.getGoodPicture());
+        model.addAttribute("goodStore", good.getGoodStore());
+        model.addAttribute("goodCommentCount", good.getGoodCommentCount());
 
         return model.toString();
 

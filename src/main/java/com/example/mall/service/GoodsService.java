@@ -70,4 +70,9 @@ public class GoodsService {
         return goodsMapper.deleteGoodsByIds(goodsIds);
     }
 
+    // 根据商品id查询商品
+    public Good findGoodById(int goodsId) {
+        return goodsMapper.selectGoodById(goodsId);
+    }
+
 }
