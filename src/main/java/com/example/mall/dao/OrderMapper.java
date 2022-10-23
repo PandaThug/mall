@@ -18,4 +18,6 @@ public interface OrderMapper {
     // 用卖家id查询其所有的订单
     List<Order> selectOrdersByShopId(@Param("shopId") int shopId);
 
+    int updateOrderStatus(@Param("orderId") int orderId);
+
 }

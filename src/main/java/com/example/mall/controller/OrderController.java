@@ -7,10 +7,12 @@ import org.apache.ibatis.ognl.ObjectElementsAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +100,25 @@ public class OrderController {
             map.put("buyerPhoneNumber", order.getTelNumber());
             map.put("buyerName", order.getBuyerName());
             model.addAttribute("orderId" + order.getOrderId(), map);
+        }
+
+        return model.toString();
+
+    }
+
+    // 根据店铺id更新订单状态
+    @RequestMapping(path = "/orderManage/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateOrderStatusUsingOrderId(Model model, String orderId) {
+
+        int id = Integer.parseInt(orderId);
+
+        Map<String, Object> map = orderService.updateOrderStatusByOrderId(id);
+
+        if (map == null || map.isEmpty()) {
+            model.addAttribute("msg", "订单状态更新成功!");
+        } else {
+            model.addAttribute("msg", map.get("msg"));
         }
 
         return model.toString();

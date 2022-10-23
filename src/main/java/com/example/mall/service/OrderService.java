@@ -71,4 +71,19 @@ public class OrderService {
         return orderMapper.selectOrdersByShopId(storeId);
     }
 
+    // 根据订单id更新订单状态
+    public Map<String, Object> updateOrderStatusByOrderId(int orderId) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int i = orderMapper.updateOrderStatus(orderId);
+
+        if (i != 1) {
+            map.put("msg", "订单状态更新失败!");
+        }
+
+        return map;
+
+    }
+
 }

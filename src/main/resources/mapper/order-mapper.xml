@@ -22,4 +22,10 @@
         where shop_id = #{shopId}
         order by order_id desc
     </select>
+
+    <update id="updateOrderStatus" parameterType="com.example.mall.entity.Order">
+        update `order`
+        set order_status = order_status + 1 where order_id = #{orderId}
+    </update>
+
 </mapper>
