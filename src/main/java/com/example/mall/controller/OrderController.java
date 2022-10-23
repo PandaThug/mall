@@ -1,5 +1,6 @@
 package com.example.mall.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.mall.entity.Good;
 import com.example.mall.entity.Order;
 import com.example.mall.service.OrderService;
@@ -113,9 +114,9 @@ public class OrderController {
     // 根据店铺id更新订单状态
     @RequestMapping(path = "/orderManage/update", method = RequestMethod.POST)
     @ResponseBody
-    public String updateOrderStatusUsingOrderId(Model model, String orderId) {
+    public String updateOrderStatusUsingOrderId(Model model, @RequestBody String orderId) {
 
-        int id = Integer.parseInt(orderId);
+        int id = Integer.parseInt(JSON.parseObject(orderId).get("orderId").toString());
 
         Map<String, Object> map = orderService.updateOrderStatusByOrderId(id);
 
