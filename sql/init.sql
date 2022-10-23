@@ -59,7 +59,7 @@ CREATE TABLE `order` (
     `total_price` INT(11) NOT NULL,  # 订单总金额
     `good_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品名称
     `good_option` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
-    `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-未完成; 1-已发货; 2-已收货; 3-待评价; 4-已评价',  # 订单状态
+    `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-待发货; 1-待收货; 2-待评价; 3-已完成;',  # 订单状态
     `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 收货地址
     `tel_number` INT(11) NOT NULL,  # 买方电话
     `buyer_name` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方名称
