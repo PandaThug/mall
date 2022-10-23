@@ -55,9 +55,10 @@ public class OrderController {
 
         List<Order> orders = orderService.findOrdersByUserId(id);
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map;
 
         for (Order order : orders) {
+            map = new HashMap<>();
             map.put("orderId", order.getOrderId());
             map.put("buyerId", order.getUserId());
             map.put("shopId", order.getShopId());
@@ -86,9 +87,10 @@ public class OrderController {
 
         List<Order> orders = orderService.findOrdersByStoreId(id);
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map;
 
         for (Order order : orders) {
+            map = new HashMap<>();
             map.put("orderId", order.getOrderId());
             map.put("buyerId", order.getUserId());
             map.put("shopId", order.getShopId());
