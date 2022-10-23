@@ -26,6 +26,9 @@ public interface GoodsMapper {
     // id, good_name, good_price, good_category, good_introduction, good_sales
     List<Good> selectGoodBySales();
 
+    // name包含该字符串的所有商品, 按销量排序
+    List<Good> selectGoodHasStringBySales(@Param("searchString") String searchString);
+
     // good_name, good_price, good_category, good_introduction, good_sales, good_options
     int insertGood(Good good);
 

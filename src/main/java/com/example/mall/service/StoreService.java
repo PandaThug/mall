@@ -95,4 +95,9 @@ public class StoreService {
         return goodsMapper.selectGoodBySales();
     }
 
+    // 查询所有name包含该字符串的商品, 按销量排序
+    public List<Good> findGoodsHaveString(String searchString) {
+        return goodsMapper.selectGoodHasStringBySales(searchString);
+    }
+
 }

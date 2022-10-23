@@ -40,6 +40,14 @@
         limit 0,24
     </select>
 
+    <select id="selectGoodHasStringBySales" resultType="com.example.mall.entity.Good">
+        select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
+        good_store, good_comment_count
+        from goods
+        where good_name like "%"#{searchString}"%"
+        order by good_sales desc
+    </select>
+
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
         insert into goods (id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count)
         values (#{id},#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions},#{goodPicture},#{goodStore},#{goodCommentCount})
