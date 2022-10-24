@@ -1,0 +1,120 @@
+.orderFrame{
+    li{
+        width: 100%;
+        margin: 0.2rem 0;
+        display: flex;
+        justify-content: center;
+        
+        .order{
+            width: 60%;
+            min-width: 300px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 3px rgba(100,100,100,0.1);
+            padding: 0.2rem;
+            div{
+                padding-bottom: 0.1rem;
+            }
+            .orderId{
+                color: #ccc;
+                font-size: larger;
+            }
+            .orderGoodsName{
+                h3{
+                font-weight: 300;
+                color:#555;
+
+                }
+                
+
+            }
+            .orderGoodsInfo{
+                font-size: larger;
+                color: #999;
+            }
+            .orderBuyerInfo{
+                font-size: larger;
+                color: #999;
+            }
+            .bts{
+                vertical-align: middle;
+                margin-top: 0.2rem;
+                display: flex;
+                justify-content: space-between;
+                >div{
+                    display: flex;
+                    span{
+                        padding-top: 1px;
+                        
+                        color: #aaa;
+                    }
+                    button{
+                        margin-left: 15px;
+                        background-color: #fff;
+                        border: none;
+                        border-bottom: 2px solid #24c6dc;
+                        font-size: larger;
+                        transition: all .2s;
+                        &:hover{
+                            color: #24c6dc;
+                        }
+                    }
+                }
+               .goodsDetail{
+                 background-color: #fff;
+                 border: none;
+                 color:#555;
+                 transition: all 0.2s;
+                 &:hover{
+                    color: #24c6dc;
+                  }
+               }
+            }
+            .orderComment{
+                padding-top: 0;
+                form{
+                    border-top: 1px solid #eee;
+                    padding: 0.2rem 0.1rem 0.1rem;
+                    span{
+                        font-size: larger;
+                        color: #24c6dc;
+                    }
+                    .scorebts{
+                        button{
+                            background-color: #fff;
+                            color: #555;
+                            border: none;
+                            margin: 0 0.2rem;
+                            transition: all .2s;
+                            border-bottom: 2px solid #fff;
+                            &:hover{
+                                color: #24c6dc;
+                            }
+                        }
+                    }
+                .commentInput{
+                    margin-top: 0.1rem;
+                    width: 100%;
+                    border: 1px solid #eee;
+                    padding: 0.1rem;
+                    font-size: larger;
+                }
+                .submitButton{
+                    button{
+                        margin-top: 0.1rem;
+                        float: right;
+                        background-color: #fff;
+                        border: none;
+                        border-bottom: 2px solid #24c6dc;
+                        font-size: larger;
+                        transition: all .2s;
+                        &:hover{
+                            color: #24c6dc;
+                        }
+                    }
+                }
+                }
+                
+            }
+        }
+    }
+}

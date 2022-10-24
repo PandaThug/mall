@@ -1,0 +1,308 @@
+#root {
+  position: relative;
+  min-height: 1000px;
+  background: -webkit-linear-gradient(left top, #24c6dc, #ffe47a);
+}
+.top {
+  z-index: 99999;
+  position: fixed;
+  height: 1rem;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+.top .toprow {
+  height: 100%;
+}
+.top .toprow .searchFrame {
+  margin: 0.2rem 0 0.2rem;
+  height: 0.6rem;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  border: 1px solid #24c6dc;
+}
+.top .toprow .searchFrame input {
+  width: 80%;
+  line-height: 0.55rem;
+  margin-left: 0.3rem;
+  font-size: larger;
+}
+.top .toprow .searchFrame button {
+  float: right;
+  margin: 0.05rem 0.1rem 0 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url(../images/search.png);
+  background-size: 0.5rem 0.5rem;
+}
+.top_zhanwei {
+  height: 1rem;
+  width: 100%;
+}
+.wrapper {
+  margin: 0 auto;
+  width: 100%;
+  min-height: 1000px;
+  background-color: #fff;
+  max-width: 1250px;
+  padding: 0;
+  padding-top: 0.5rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.wrapper .infoFrame {
+  overflow: hidden;
+}
+.wrapper hr {
+  background-color: #eee;
+}
+.wrapper .userFrame .sellerLogoutFrame {
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+}
+.wrapper .userFrame .sellerLogoutFrame div {
+  margin: 50% 0;
+}
+.wrapper .userFrame .sellerLogoutFrame div button {
+  border: none;
+  background: white;
+  font-size: larger;
+  color: #aaa;
+}
+.wrapper .userFrame .sellerLogoutFrame div button:hover {
+  color: #24c6dc;
+}
+.wrapper .userFrame .userGroup {
+  max-height: 125px;
+}
+.wrapper .userFrame .userGroup .usernameFrame .span1 {
+  font-size: 0.5rem;
+  color: #24c6dc;
+}
+.wrapper .userFrame .userGroup .usernameFrame .span2 {
+  font-size: 0.3rem;
+}
+.wrapper .userFrame .userGroup .buttonGroup {
+  height: 50%;
+  margin: 15% 0;
+}
+.wrapper .userFrame .userGroup .buttonGroup button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #24c6dc;
+  color: #fff;
+  transition: all 0.3s;
+}
+.wrapper .userFrame .userGroup .buttonGroup button:hover {
+  background-color: #5dcec2;
+}
+.wrapper .classFrame {
+  vertical-align: middle;
+  font-size: larger;
+}
+.wrapper .classFrame .classContainer {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+}
+.wrapper .classFrame .classContainer a {
+  font-weight: 300;
+  transition: all 0.3s;
+  color: #6a6a6a;
+}
+.wrapper .classFrame .classContainer a:hover {
+  text-decoration: none;
+  color: #24c6dc;
+}
+@media screen and (min-width: 992px) {
+  .wrapper .classFrame .classContainer {
+    height: 12.5%;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .wrapper .classFrame .classContainer {
+    width: 50%;
+  }
+}
+.wrapper .goodsFrame {
+  min-height: 1000px;
+  width: 100%;
+}
+.wrapper .goodsFrame li {
+  margin: 10px 0;
+  padding: 0;
+}
+.wrapper .goodsFrame li:hover:not(.notUp) {
+  transform: translate(0px, -3px);
+}
+.wrapper .goodsFrame .goods {
+  position: relative;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}
+.wrapper .goodsFrame .goods > div {
+  display: inline-block;
+}
+.wrapper .goodsFrame .goods .goodsImg {
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  position: relative;
+}
+.wrapper .goodsFrame .goods .goodsImg img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.wrapper .goodsFrame .goods .goodsInfo {
+  height: auto;
+  padding: 2vw;
+}
+@media screen and (min-width: 768px) {
+  .wrapper .goodsFrame .goods .goodsInfo {
+    width: 100%;
+  }
+}
+.wrapper .goodsFrame .goods .goodsInfo .goodsName {
+  height: 1rem;
+  font-size: 0.4rem;
+  line-height: 0.5rem;
+  color: #555;
+  font-weight: 300;
+}
+.wrapper .goodsFrame .goods .goodsInfo .goodsOther {
+  margin-top: 1vw;
+  position: relative;
+}
+.wrapper .goodsFrame .goods .goodsInfo .goodsOther .goodsPrice {
+  font-size: 0.5rem;
+  color: #ff7575;
+}
+.wrapper .goodsFrame .goods .goodsInfo .goodsOther .goodsPrice:before {
+  content: "￥";
+  font-size: 20px;
+}
+.wrapper .goodsFrame .goods .goodsInfo .goodsOther .goodsSales {
+  margin-left: 10%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #aaa;
+  font-size: 12px;
+}
+.haha {
+  height: 10px;
+  width: 10px;
+}
+.haha1 {
+  position: relative;
+}
+.haha2 {
+  position: fixed;
+  top: 50vh;
+  right: 0;
+}
+.bannerFrame {
+  margin: 0;
+  padding: 0;
+}
+.bannerFrame img {
+  width: 100%;
+  height: 100%;
+}
+.bannerFrame .swiper {
+  height: 100%;
+  border-radius: 3vw;
+}
+@media screen and (min-width: 992px) {
+  .userFrame {
+    padding-left: 3%;
+    width: 20vw;
+    height: 40vw;
+    max-width: 250px;
+    max-height: 500px;
+  }
+  .userFrame .userGroup {
+    height: 10vw;
+  }
+  .userFrame .userGroup .usernameFrame {
+    padding: 20% 5% 0;
+  }
+  .userFrame .userGroup .buttonGroup {
+    font-size: 1.4vw;
+  }
+  .bannerFrame {
+    width: 60vw;
+    height: 40vw;
+    max-width: 750px;
+    max-height: 500px;
+    margin: 0px;
+  }
+  .classFrame {
+    width: 18vw;
+    height: 40vw;
+    max-width: 250px;
+    max-height: 500px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .userFrame {
+    padding: 0 10%;
+    width: 100vw;
+    height: 1.5rem;
+  }
+  .userFrame .userGroup {
+    height: 100%;
+  }
+  .bannerFrame {
+    width: 90vw;
+    height: 60vw;
+    margin: 2vw 5vw;
+  }
+  .classFrame {
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .userGroup {
+    padding: 0.5%;
+  }
+  .goods {
+    overflow: hidden;
+    margin: 0 !important;
+    width: 90vw !important;
+  }
+  .goodsImg {
+    float: left;
+    width: 40% !important;
+    height: 0 !important;
+    padding-top: 40% !important;
+  }
+  .goodsInfo {
+    float: right;
+    width: 58% !important;
+  }
+  .goodsInfo .goodsPrice {
+    font-size: 0.6rem !important;
+    line-height: 0.2rem !important;
+  }
+  .goodsInfo .goodsSales {
+    font-size: 10px !important;
+  }
+  .goodsName {
+    height: 23vw !important;
+    font-size: 0.5rem !important;
+    line-height: 0.6rem !important;
+  }
+}

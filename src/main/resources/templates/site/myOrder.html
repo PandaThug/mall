@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <!-- <link rel="stylesheet" href="../../static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="stylesheet" href="../../static/css/goods.css">
+    <link rel="stylesheet" href="../../static/css/orders.css">
+    <link rel="stylesheet" href="../../static/css/qingchu.css">
+
+        <script src="../../static/js/main.js"></script>
+    <script src="../../static/js/vue.js"></script> -->
+       
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+        <link rel="stylesheet" th:href="@{/css/qingchu.css}">
+        <link rel="stylesheet" th:href="@{/css/orders.css}">
+        <link rel="stylesheet" th:href="@{/css/goods.css}">
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/vue.js}"></script>
+        <script th:src="@{/js/axios.min.js}"></script>
+    <title>商品详情_网上商城</title>
+</head>
+<body>
+    <div id="root">
+        <div class="top container">
+            <div class="toprow">
+                <button class="backToIndex" @click="backToIndex">返回首页</button>
+                <div class="goodsUserName">
+                    <div>
+                        <span class="span1">已登录，</span>
+                        <span class="span2">{{username}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top_zhanwei"></div>
+        
+        <div class="wrapper">
+            <div class="orderFrame">
+                <ul>
+                    <li  v-for="order in orderList">
+                        <div class="order">
+                            <div class="orderId"><span>#{{order.orderId}}</span></div>
+                            <div class="orderGoodsName"><h3>{{order.goodsName}}</h3></div>
+                            <div class="orderGoodsInfo">{{order.goodsOption}};&nbsp购买数量:{{order.orderNum}};&nbsp总金额:￥{{order.totalPrice}}</div>
+                            <div class="orderBuyerInfo">收货人姓名:{{order.buyerName}};&nbsp收货人电话:{{order.buyerPhoneNumber}};&nbsp收货地址:{{order.buyerAddress}}</div>
+                            <div class="bts">
+                                <button class="goodsDetail" @click="clickGoodsDetail(order.goodsId)">查看商品详情</button>
+                                 
+                                 <div>
+                                    <span>订单当前状态：{{order.orderStatus | statusSwitch}}</span>
+                                    <!-- <button class="changeOrderStatus" @click="changeOrderStatus(order.orderId)" v-show="order.orderStatus==0">确认发货</button> -->
+                                <button class="changeOrderStatus" @click="changeOrderStatusConfirm(order.orderId)" v-show="order.orderStatus==1">确认收货</button>
+                                 </div>
+                                
+                                
+                            </div>
+                            <div class="orderComment" v-show="order.orderStatus==2 && isBuyer">
+                               
+                                <form action="" @submit.prevent="submitComment($event)">
+                                    <span>商品评价：</span>
+                                    <span class="scorebts">
+                                         <input type="hidden" name="commentScore">
+                                          <button v-for="score in scores" type="button" @click="clickScore(score,$event)">{{score}}分</button>
+                                         
+                                    </span>
+                                    <br>
+                                    <input type="hidden" :value="order.orderId" name="orderId">
+                                    <input type="text" name="commentText" placeholder="请输入评价" class="commentInput">
+                                    <br>
+                                    <div class="submitButton"><button type="submit">提交评价</button></div>
+                                    
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+new Vue(
+    {
+        el:'#root',
+        data() {
+            return {
+                username:"",
+                userId:"",
+                isBuyer:true,
+                scores:[1,2,3,4,5],
+                orderList:[],
+            }
+        },
+        computed:{
+            optionsArray:function(){
+                return optionstoArray(this.goodsOptions);
+            }
+        },
+        methods: {
+            getOrderList(){
+                let that=this;
+                this.orderList=[];
+            //获取订单列表
+            axios({
+                    method:''+
+                    'GET',
+                    url:'http://localhost:8080/mall/orderManage/buyer/getAll?userId='+that.userId,
+                }).then(resp2=>{
+                    listString=resp2.data;
+                    //字符串转换为多个对象
+                    var str2=listString.substring(1,listString.length-1);
+                    //let obj = {};
+                    let arr1 = str2.split('}, ');
+                    arr1.forEach(function(item){
+                        var str3=item.split('{');
+                        var x=stringtoObjWashed('{'+str3[1]+'}');
+                        that.orderList.push(x);
+                       
+                     })
+                })
+            },
+            backToIndex(){
+                document.location.href="http://localhost:8080/mall/index";
+            },
+            clickGoodsDetail(id){
+                document.cookie="goodsId="+id;
+                document.location.href="http://localhost:8080/mall/goods";
+            },
+            changeOrderStatusConfirm(id){
+                
+                if(window.confirm("是否确定已收货？"))
+                {
+                    this.changeOrderStatus(id);
+                }
+                
+            },
+            changeOrderStatus(id){
+                let that=this;
+                axios({
+                    method:''+
+                    'POST',
+                    url:'http://localhost:8080/mall/orderManage/update',
+                    data:{
+                        orderId:id
+                    }
+                }).then(resp=>{
+                    let obj=stringtoObj(resp.data);
+                    if(obj.msg=="订单状态更新成功!") {
+                       that.getOrderList();
+                       alert("操作成功！");
+
+                    }
+                    else
+                    alert("操作失败");
+                })
+            },
+            clickScore(score,e){
+                e.target.parentNode.firstChild.value=score;
+                let bts=e.target.parentNode.childNodes;
+                console.log(bts);
+                for(i=2;i<bts.length;i++)
+                {
+                    bts[i].style.color="#555";
+                    bts[i].style.borderBottom="2px solid #fff";
+                }
+                e.target.style.color="#24c6dc";
+                e.target.style.borderBottom="2px solid #24c6dc";
+            },
+            submitComment(e){
+                let that=this;
+                var formData = new FormData(e.target);
+                axios({
+                    method:''+
+                    'POST',
+                    url:'http://localhost:8080/mall/commentManage/add',
+                    data:formData
+                }).then(resp=>{
+                    let obj=stringtoObj(resp.data);
+                    if(obj.msg=="评论成功!") {
+                        console.log(formData.get("orderId"));
+                        that.changeOrderStatus(formData.get("orderId"));
+                    }
+                    else
+                    alert("操作失败");
+                })
+            }
+            
+        },
+        created:function(){
+            let that=this;
+            let obj=cookietoObj(document.cookie);
+            this.userId=obj.id;
+            this.username=obj.username;
+            this.getOrderList();
+
+        },
+        filters:{
+            statusSwitch(value){
+                if(value==0)
+                return "待发货";
+                else if(value==1)
+                return "待收货"
+                else if(value==2)
+                return "待评价"
+                else if(value==3)
+                return "已完成"
+            }
+        }
+
+    }
+)
+    </script>
+</body>
+</html>

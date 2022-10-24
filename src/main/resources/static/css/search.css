@@ -1,0 +1,16 @@
+.backToIndex {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.1rem;
+  font-size: larger;
+  padding: 2px 5px;
+  background-color: white;
+  border: none;
+  color: #24c6dc;
+  transition: all 0.3s;
+}
+.backToIndex:hover {
+  background-color: #24c6dc;
+  border-radius: 10px;
+  color: white;
+}

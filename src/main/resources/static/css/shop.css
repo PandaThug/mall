@@ -1,0 +1,13 @@
+.wrapper .shopFrame {
+  padding: 0.3rem;
+  text-align: center;
+}
+.wrapper .shopFrame #shopName {
+  font-size: 0.5rem;
+  color: #24c6dc;
+}
+.wrapper .shopFrame #shopIntroduction {
+  color: #aaa;
+  font-size: 0.3rem;
+  max-width: 70%;
+}

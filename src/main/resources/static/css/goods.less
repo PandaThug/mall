@@ -1,0 +1,236 @@
+.toprow{
+    padding: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: larger;
+    >button{
+        padding: 2px 5px;
+            background-color: white;
+            border: none;
+            color: #24c6dc;
+            transition:all .3s;
+            &:hover{
+                background-color: #24c6dc;
+                border-radius: 10px;
+                color: white;
+            }
+        }
+    .goodsUserName{
+        >div{
+            .span1{
+                color:#555;
+            }
+            .span2{
+                color:#24c6dc;
+            }
+        }
+    }
+}
+
+.wrapper{
+    infoFrame{
+        display: flex;
+        flex-direction: column;
+    }
+    @media screen and (min-width:992px){
+       .goodsInfo1{
+        width:80%;
+        padding: 0;
+        .imgFrame{
+            padding-top: 50%;
+        }
+       }
+    }
+    @media screen and (max-width:992px){
+        .goodsInfo1{
+            margin: 0;
+            padding: 0;
+         .imgFrame{
+             padding-top: 100%;
+         }
+        }
+     }
+    .goodsInfo1{
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        .imgFrame{
+            position: relative;
+            height: 0;
+           
+            img{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                
+            }
+        }
+        .infoFrame{
+            @media screen and (min-width:992px){
+                height: 0;
+                padding-top: 50%;
+                position: relative;
+                .info{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+             }
+             .info{
+                display: flex;
+                flex-direction: column;
+             }
+            .goods_goodsName{
+                flex: 2;
+                padding: 0.3rem;
+                h1{
+                    font-weight: 100 !important;
+                    color: #888;
+                }
+            }
+            .goods_goodsPriceSales{
+                flex: 2;
+                padding: 0.3rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                h2{
+                    &:before{
+                        content: "￥";
+                        
+                        font-size: 30px;
+                    }
+                    font-size: 0.7rem;
+                    color: rgb(255, 117, 117);
+                }
+                h3{
+                    font-size: 0.3rem;
+                    color: #999;
+                }
+
+            }
+            .orderInfo{
+                flex:7;
+                @media screen and (min-width:992px){
+                     padding:0 0.5rem 0.5rem;
+                 }
+                 @media screen and (max-width:992px){
+                    padding:0 0.2rem 0.2rem;
+                }
+                form{
+                    @media screen and (max-width:992px){
+                       div{
+                        margin: 0.1rem 0;
+                       }
+                    }
+                   padding: 0.2rem 0.3rem 0.2rem 0.5rem;
+                    height: 100%;
+                    width: 100%;
+                    border: 1px solid #eee;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    h4{
+                        text-align: center;
+                        color: #aaa;
+                        font-weight: 300;
+                    }
+                    span{
+                        font-size: larger;
+                        color: #888;
+                    }
+                    input{
+                        border: 0.5px solid #ddd;
+                        font-size: larger;
+                        padding: 0 0.1rem;
+                    }
+                    .orderNum{
+                        input{
+                            width: 1rem;
+                        }
+                    }
+                    .orderBuyerName{
+                        input{
+                            width: 2rem;
+                        }
+                    }
+                    .orderBuyerAddress{
+                        input{
+                            width: 70%;
+                        }
+                    }
+                    .orderSubmit{
+                        button{
+                            float: right;
+                            background-color: white;
+                            border: none;
+                            font-size: larger;
+                            color:#aaa;
+                            &:hover{
+                                color:#24c6dc;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+         }
+    }
+    .options{
+        margin: 0.3rem 0;
+        display: flex;
+        justify-content: center;
+        div{
+            @media screen and (max-width:992px){
+                width: 95%;
+             }
+             @media screen and (min-width:992px){
+                width: 80%;
+             }
+            
+            button{
+                transition: all 0.2s;
+                background: white;
+                margin: 0 0.1rem;
+                border: none;
+                border-top: 2px solid white;
+                height: 0.6rem;
+                font-size: larger;
+                color: #555;
+                &:hover{
+                    color: #24c6dc;
+                }
+            }
+            .button_detail{
+                border-top: 2px solid #24c6dc;
+                color: #24c6dc;
+            }
+            .button_shop{
+                float: right;
+            }
+        }
+    }
+    .optionsFrame{
+        display: flex;
+        justify-content: center;
+        >div{
+            @media screen and (max-width:992px){
+            width: 95%;
+         }
+         @media screen and (min-width:992px){
+            width:80%;
+         }
+         border: 1px solid #ccc;
+         padding: 0.3rem;
+         .detail{
+            font-size: larger;
+         }
+        }
+        
+    }
+}
