@@ -2,6 +2,7 @@ package com.example.mall.controller;
 
 import com.example.mall.entity.User;
 import com.example.mall.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,12 @@ public class LoginController {
         userService.logout(ticket);
 //        SecurityContextHolder.clearContext();
 
+    }
+
+    @GetMapping(path = "/account")
+    @ResponseBody
+    public String getAccountByUserId(@RequestParam("id") String id) {
+        return String.valueOf(userService.findAccountById(Integer.parseInt(id)));
     }
 
 }

@@ -29,12 +29,17 @@
     </select>
 
     <insert id="insertUser" parameterType="com.example.mall.entity.User" keyProperty="id">
-        insert into user (username, password, type)
-        values (#{username},#{password},#{type})
+        insert into user (username, password, type, account)
+        values (#{username},#{password},#{type},#{account})
     </insert>
 
     <update id="updatePassword">
         update user set password = #{password} where id = #{id}
     </update>
 
+    <select id="selectAccountById" resultType="java.lang.Integer">
+        select account
+        from user
+        where id = #{id}
+    </select>
 </mapper>

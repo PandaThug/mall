@@ -8,15 +8,16 @@ public class User {
     private String username;
     private String password;
     private String type;  // 0-管理员    1-买家    2-卖家
-
+    private Integer account;  // 余额
     public User() {
     }
 
-    public User(Integer id, String username, String password, String type) {
+    public User(Integer id, String username, String password, String type, Integer account) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.type = type;
+        this.account = account;
     }
 
     public Integer getId() {
@@ -51,14 +52,22 @@ public class User {
         this.type = type;
     }
 
+    public Integer getAccount() {
+        return account;
+    }
+
+    public void setAccount(Integer account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", type=" + type +
+                ", type='" + type + '\'' +
+                ", account=" + account +
                 '}';
     }
-
 }

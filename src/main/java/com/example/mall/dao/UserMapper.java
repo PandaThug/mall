@@ -13,6 +13,8 @@ public interface UserMapper {
 
     Integer selectIdByName(@Param("username")String username);
 
+    Integer selectAccountById(@Param("id")Integer id);
+
     String selectTypeByName(@Param("username")String username);
 
     Integer insertUser(User user);

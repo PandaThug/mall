@@ -10,6 +10,7 @@ CREATE TABLE `user` (
   `username` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户名
   `password` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 用户密码
   `type` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0-管理员; 1-买家; 2-卖家;',  # 用户类型
+  `account` INT(11) NOT NULL,  # 用户账户余额
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_username`(`username`(20)) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
@@ -31,6 +32,8 @@ CREATE TABLE `goods` (
     `good_picture` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品图片
     `good_store` INT(11) NOT NULL,  # 所属店铺
     `good_comment_count` INT(11) NOT NULL,  # 商品评价数
+    `real_inventory` INT(11) NOT NULL,  # 商品实际库存
+    `virtual_inventory` INT(11) NOT NULL,  # 商品虚拟库存
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
@@ -59,7 +62,7 @@ CREATE TABLE `order` (
     `total_price` INT(11) NOT NULL,  # 订单总金额
     `good_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品名称
     `good_option` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 商品选项
-    `order_status` INT(11) NOT NULL DEFAULT 0 COMMENT '0-待发货; 1-待收货; 2-待评价; 3-已完成;',  # 订单状态
+    `order_status` INT(11) NOT NULL DEFAULT -1 COMMENT '-1-未支付; 0-未发货; 1-待收货; 2-待评价; 3-已完成;',  # 订单状态
     `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 收货地址
     `tel_number` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方电话
     `buyer_name` VARCHAR(255)CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,  # 买方名称

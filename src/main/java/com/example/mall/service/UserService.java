@@ -76,6 +76,7 @@ public class UserService {
         // 注册用户
         user.setPassword(user.getPassword());
         user.setType(user.getType());
+        user.setAccount(10000);
         userMapper.insertUser(user);
         if (user.getType().equals("2")) {
             storeMapper.insertStore(new Store(user.getId(), user.getUsername() + "的店铺",
@@ -214,5 +215,9 @@ public class UserService {
 //        });
 //        return list;
 //    }
+
+    public Integer findAccountById(Integer id) {
+        return userMapper.selectAccountById(id);
+    }
 
 }
