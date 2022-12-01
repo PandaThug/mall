@@ -89,6 +89,7 @@ public class OrderService {
         int goodPrice = good.getGoodPrice();
         Order order = orderMapper.selectOrderById(orderId);
         int status = order.getOrderStatus();
+        int storeId = goodsMapper.selectStoreIdByGoodId(goodId);
 
         // 状态从-1到0：支付
         if (status == -1) {
@@ -98,13 +99,16 @@ public class OrderService {
                 map.put("msg", "支付失败,商品库存不足!");
             } else {
                 int userId = orderMapper.selectUserIdByOrderId(orderId);
-                Integer account = userMapper.selectAccountById(userId);
+                Integer buyerAccount = userMapper.selectAccountById(userId);
+                Integer sellerAccount = userMapper.selectAccountById(storeId);
+
                 int price = goodPrice * purchaseQuantity;
-                if (account < price) {
+                if (buyerAccount < price) {
                     map.put("msg", "支付失败,用户余额不足!");
                 } else {
                     goodsMapper.updateGoodRealInventoryByGoodIdAndPurchaseQuantity(goodId, realInventory - purchaseQuantity);
-                    userMapper.updateUserAccountByUserId(userId, account - price);
+                    userMapper.updateUserAccountByUserId(userId, buyerAccount - price);
+                    userMapper.updateUserAccountByUserId(storeId, sellerAccount + price);
                     orderMapper.updateOrderStatus(orderId);
                 }
             }
