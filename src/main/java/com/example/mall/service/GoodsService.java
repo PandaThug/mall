@@ -51,6 +51,10 @@ public class GoodsService {
             map.put("goodInstructionMsg", "商品说明未填写!");
             return map;
         }
+        if (good.getRealInventory() == 0 || good.getVirtualInventory() == 0) {
+            map.put("goodInventoryMsg", "商品库存未填写!");
+            return map;
+        }
         Good g = goodsMapper.selectGoodByName(good.getGoodName());
         if (g != null) {
             map.put("goodNameMsg", "该商品名称已被占用!");
@@ -87,6 +91,16 @@ public class GoodsService {
     public int changeGoodCommentsCountByOrderId(int orderId) {
         int goodId = orderMapper.selectGoodIdByOrderId(orderId);
         return goodsMapper.updateGoodCommentsCountByGoodId(goodId);
+    }
+
+    // 根据商品id查询其实际库存
+    public int findRealInventoryByGoodId(int id) {
+        return goodsMapper.selectRealInventoryByGoodId(id);
+    }
+
+    // 根据商品id查询其虚拟库存
+    public int findVirtualInventoryByGoodId(int id) {
+        return goodsMapper.selectVirtualInventoryByGoodId(id);
     }
 
 }

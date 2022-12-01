@@ -46,7 +46,7 @@ public class GoodsController {
     @RequestMapping(path = "/goodManage/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(Model model, String goodName, String goodType, String goodPrice, String goodImg,
-                          String goodOptions, String goodDetails){
+                          String goodOptions, String goodDetails, String inventory){
 
         User user = hostHolder.getUser();
 
@@ -63,7 +63,8 @@ public class GoodsController {
         int storeId = storeService.findStoreIdByName(storeName);
         int price = Integer.parseInt(goodPrice);
 
-        Good good = new Good(0, goodName, price, goodType, goodDetails, 0, goodOptions, goodImg, storeId, 0);
+        Good good = new Good(0, goodName, price, goodType, goodDetails, 0,
+                goodOptions, goodImg, storeId, 0, Integer.parseInt(inventory), Integer.parseInt(inventory));
 
         Map<String, Object> map = goodsService.addGoods(good);
 
@@ -75,6 +76,7 @@ public class GoodsController {
             model.addAttribute("goodPictureMsg", map.get("goodPictureMsg"));
             model.addAttribute("goodOptionsMsg", map.get("goodOptionsMsg"));
             model.addAttribute("goodInstructionMsg", map.get("goodInstructionMsg"));
+            model.addAttribute("goodInventoryMsg", map.get("goodInventoryMsg"));
         }
 
         return model.toString();
@@ -113,6 +115,7 @@ public class GoodsController {
         model.addAttribute("goodPicture", good.getGoodPicture());
         model.addAttribute("goodStore", good.getGoodStore());
         model.addAttribute("goodCommentCount", good.getGoodCommentCount());
+        model.addAttribute("goodInventory", good.getVirtualInventory());
 
         return model.toString();
 

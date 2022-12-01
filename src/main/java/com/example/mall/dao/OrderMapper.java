@@ -21,10 +21,19 @@ public interface OrderMapper {
 
     int updateOrderStatus(@Param("orderId") int orderId);
 
+    int selectOrderStatusByGoodId(@Param("goodId") int goodId);
+
     // 根据订单编号查找对应的商品编号
     int selectGoodIdByOrderId(@Param("orderId") int orderId);
 
     // 根据订单编号查找对应的店铺编号
     int selectStoreIdByOrderId(@Param("orderId") int orderId);
+
+    // 根据订单编号查找对应的订单
+    Order selectOrderById(@Param("orderId") int orderId);
+
+    // 根据订单编号查找对应的用户编号
+    int selectUserIdByOrderId(@Param("orderId") int orderId);
+
 
 }

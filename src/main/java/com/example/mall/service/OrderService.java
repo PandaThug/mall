@@ -2,6 +2,8 @@ package com.example.mall.service;
 
 import com.example.mall.dao.GoodsMapper;
 import com.example.mall.dao.OrderMapper;
+import com.example.mall.dao.UserMapper;
+import com.example.mall.entity.Good;
 import com.example.mall.entity.Order;
 import com.example.mall.entity.User;
 import com.example.mall.utils.HostHolder;
@@ -22,6 +24,8 @@ public class OrderService {
     private HostHolder hostHolder;
     @Autowired
     private GoodsMapper goodsMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     // 买家下单
     public Map<String, Object> addOrder(Order order) {
@@ -36,11 +40,9 @@ public class OrderService {
         }
         if (StringUtils.isBlank(order.getBuyerName())) {
             map.put("buyerNameMsg", "未填写收货人姓名!");
-            return map;
         }
         if (StringUtils.isBlank(order.getTelNumber())) {
             map.put("buyerPhoneMsg", "未填写收货人电话号码!");
-            return map;
         }
         if (StringUtils.isBlank(order.getAddress())) {
             map.put("buyerAddressMsg", "未填写收货地址!");
@@ -49,15 +51,22 @@ public class OrderService {
         int goodId = order.getGoodId();
         int storeId = goodsMapper.selectStoreIdByGoodId(goodId);
 
-        order.setOrderId(0);
-        order.setShopId(storeId);
-        order.setTotalPrice(order.getPurchaseQuantity() * goodsMapper.selectPriceByGoodId(goodId));
-        order.setOrderStatus(0);
-
-        orderMapper.insertOrder(order);
-
+        // 查询商品虚拟库存
+        int purchaseQuantity = order.getPurchaseQuantity();
+        int virtualInventory = goodsMapper.selectVirtualInventoryByGoodId(goodId);
+        if (virtualInventory < purchaseQuantity) {
+            map.put("inventoryMsg", "商品库存不足!");
+        } else {
+            order.setOrderId(0);
+            order.setShopId(storeId);
+            order.setTotalPrice(order.getPurchaseQuantity() * goodsMapper.selectPriceByGoodId(goodId));
+            order.setOrderStatus(0);
+            order.setOrderStatus(-1);
+            // 更新商品虚拟库存
+            goodsMapper.updateGoodVirtualInventoryByGoodIdAndPurchaseQuantity(goodId, virtualInventory - purchaseQuantity);
+            orderMapper.insertOrder(order);
+        }
         return map;
-
     }
 
     // 根据用户id查找其所有订单
@@ -75,10 +84,32 @@ public class OrderService {
 
         Map<String, Object> map = new HashMap<>();
 
-        int i = orderMapper.updateOrderStatus(orderId);
+        int goodId = orderMapper.selectGoodIdByOrderId(orderId);
+        Good good = goodsMapper.selectGoodById(goodId);
+        int goodPrice = good.getGoodPrice();
+        Order order = orderMapper.selectOrderById(orderId);
+        int status = order.getOrderStatus();
 
-        if (i != 1) {
-            map.put("msg", "订单状态更新失败!");
+        // 状态从-1到0：支付
+        if (status == -1) {
+            int realInventory = good.getRealInventory();
+            int purchaseQuantity = order.getPurchaseQuantity();
+            if (realInventory < purchaseQuantity) {
+                map.put("msg", "支付失败,商品库存不足!");
+            } else {
+                int userId = orderMapper.selectUserIdByOrderId(orderId);
+                Integer account = userMapper.selectAccountById(userId);
+                int price = goodPrice * purchaseQuantity;
+                if (account < price) {
+                    map.put("msg", "支付失败,用户余额不足!");
+                } else {
+                    goodsMapper.updateGoodRealInventoryByGoodIdAndPurchaseQuantity(goodId, realInventory - purchaseQuantity);
+                    userMapper.updateUserAccountByUserId(userId, account - price);
+                    orderMapper.updateOrderStatus(orderId);
+                }
+            }
+        } else {
+            orderMapper.updateOrderStatus(orderId);
         }
 
         return map;

@@ -6,21 +6,21 @@
 
     <select id="selectGoodById" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-            good_store, good_comment_count
+            good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         where id = #{id}
     </select>
 
     <select id="selectGoodByName" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-            good_store, good_comment_count
+            good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         where good_name = #{goodName}
     </select>
 
     <select id="selectGoodsByStoreId" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-            good_store, good_comment_count
+            good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         where good_store = #{storeId}
         order by id desc
@@ -28,7 +28,7 @@
 
     <select id="selectGoodByCategory" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-            good_store, good_comment_count
+            good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         where good_category = #{goodCategory}
     </select>
@@ -47,7 +47,7 @@
 
     <select id="selectGoodBySales" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-            good_store, good_comment_count
+            good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         order by good_sales desc, id desc
         limit 0,24
@@ -55,15 +55,15 @@
 
     <select id="selectGoodHasStringBySales" resultType="com.example.mall.entity.Good">
         select id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture,
-        good_store, good_comment_count
+        good_store, good_comment_count, real_inventory, virtual_inventory
         from goods
         where good_name like "%"#{searchString}"%"
         order by good_sales desc
     </select>
 
     <insert id="insertGood" parameterType="com.example.mall.entity.Good" keyProperty="id">
-        insert into goods (id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count)
-        values (#{id},#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions},#{goodPicture},#{goodStore},#{goodCommentCount})
+        insert into goods (id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count, real_inventory, virtual_inventory)
+        values (#{id},#{goodName},#{goodPrice},#{goodCategory},#{goodIntroduction},#{goodSales},#{goodOptions},#{goodPicture},#{goodStore},#{goodCommentCount},#{realInventory},#{virtualInventory})
     </insert>
 
     <update id="updateGoodName">
@@ -93,4 +93,20 @@
     <update id="updateGoodCommentsCountByGoodId">
         update goods set good_comment_count = good_comment_count + 1 where id = #{id}
     </update>
+
+    <update id="updateGoodVirtualInventoryByGoodIdAndPurchaseQuantity">
+        update goods set virtual_inventory = virtual_inventory - #{quantity} where id = #{id}
+    </update>
+
+    <update id="updateGoodRealInventoryByGoodIdAndPurchaseQuantity">
+        update goods set real_inventory = real_inventory - #{quantity} where id = #{id}
+    </update>
+
+    <select id="selectRealInventoryByGoodId" resultType="int">
+        select real_inventory from goods where id = #{id}
+    </select>
+
+    <select id="selectVirtualInventoryByGoodId" resultType="int">
+        select virtual_inventory from goods where id = #{id}
+    </select>
 </mapper>

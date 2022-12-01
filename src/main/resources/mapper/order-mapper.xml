@@ -39,4 +39,23 @@
         from `order`
         where order_id = #{orderId}
     </select>
+
+    <select id="selectOrderStatusByGoodId" resultType="int">
+        select order_status
+        from `order`
+        where good_id = #{goodId}
+    </select>
+
+    <select id="selectOrderById" resultType="com.example.mall.entity.Order">
+        select order_id, user_id, shop_id, good_id, purchase_quantity, total_price, good_name, good_option, order_status, address, tel_number, buyer_name
+        from `order`
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectUserIdByOrderId" resultType="int">
+        select user_id
+        from `order`
+        where order_id = #{orderId}
+    </select>
+
 </mapper>

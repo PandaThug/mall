@@ -12,7 +12,7 @@ public class Order {
     private int totalPrice;
     private String goodName;
     private String goodOption;
-    private int orderStatus;  // 0-未完成; 1-已发货; 2-已收货; 3-待评价; 4-已评价
+    private int orderStatus;  // -1-未支付; 0-未发货; 1-待收货; 2-待评价; 3-已完成;
     private String address;
     private String telNumber;
     private String buyerName;

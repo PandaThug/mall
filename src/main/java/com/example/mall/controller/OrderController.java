@@ -46,6 +46,7 @@ public class OrderController {
             model.addAttribute("buyerNameMsg", map.get("buyerNameMsg"));
             model.addAttribute("buyerPhoneMsg", map.get("buyerPhoneMsg"));
             model.addAttribute("buyerAddressMsg", map.get("buyerAddressMsg"));
+            model.addAttribute("inventoryMsg", map.get("inventoryMsg"));
         }
 
         return model.toString();

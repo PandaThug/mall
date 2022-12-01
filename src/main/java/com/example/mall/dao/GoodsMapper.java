@@ -10,13 +10,13 @@ import java.util.List;
 @Mapper
 public interface GoodsMapper {
 
-    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count, real_inventory, virtual_inventory
     Good selectGoodById(@Param("id") int id);
 
-    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count, real_inventory, virtual_inventory
     Good selectGoodByName(@Param("goodName") String goodName);
 
-    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count
+    // id, good_name, good_price, good_category, good_introduction, good_sales, good_options, good_picture, good_store, good_comment_count, real_inventory, virtual_inventory
     List<Good> selectGoodsByStoreId(@Param("storeId") int storeId);
 
     // id, good_name, good_price, good_category, good_introduction, good_sales
@@ -53,5 +53,18 @@ public interface GoodsMapper {
 
     // 根据商品id更新商品评价数量
     int updateGoodCommentsCountByGoodId(@Param("id") int id);
+
+    // 用户下单时根据对应商品id和购买数量更新商品虚拟库存
+    int updateGoodVirtualInventoryByGoodIdAndPurchaseQuantity(@Param("id") int id, @Param("quantity") int quantity);
+
+    // 用户支付时根据对应商品id和购买数量更新商品实际库存
+    int updateGoodRealInventoryByGoodIdAndPurchaseQuantity(@Param("id") int id, @Param("quantity") int quantity);
+
+    // 根据商品id查询商品实际库存
+    int selectRealInventoryByGoodId(@Param("id") int id);
+
+    // 根据商品id查询商品虚拟库存
+    int selectVirtualInventoryByGoodId(@Param("id") int id);
+
 
 }

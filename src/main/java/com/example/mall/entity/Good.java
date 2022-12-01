@@ -14,9 +14,11 @@ public class Good {
     private String goodPicture;
     private int goodStore;
     private int goodCommentCount;
+    private int realInventory;  // 实际库存
+    private int virtualInventory;  // 虚拟库存
 
-    public Good(int id, String goodName, int goodPrice, String goodCategory, String goodIntroduction,
-                int goodSales, String goodOptions, String goodPicture, int goodStore, int goodCommentCount) {
+    public Good(int id, String goodName, int goodPrice, String goodCategory, String goodIntroduction, int goodSales,
+                String goodOptions, String goodPicture, int goodStore, int goodCommentCount, int realInventory, int virtualInventory) {
         this.id = id;
         this.goodName = goodName;
         this.goodPrice = goodPrice;
@@ -27,6 +29,8 @@ public class Good {
         this.goodPicture = goodPicture;
         this.goodStore = goodStore;
         this.goodCommentCount = goodCommentCount;
+        this.realInventory = realInventory;
+        this.virtualInventory = virtualInventory;
     }
 
     public int getId() {
@@ -109,6 +113,22 @@ public class Good {
         this.goodCommentCount = goodCommentCount;
     }
 
+    public int getRealInventory() {
+        return realInventory;
+    }
+
+    public void setRealInventory(int realInventory) {
+        this.realInventory = realInventory;
+    }
+
+    public int getVirtualInventory() {
+        return virtualInventory;
+    }
+
+    public void setVirtualInventory(int virtualInventory) {
+        this.virtualInventory = virtualInventory;
+    }
+
     @Override
     public String toString() {
         return "Good{" +
@@ -120,8 +140,10 @@ public class Good {
                 ", goodSales=" + goodSales +
                 ", goodOptions='" + goodOptions + '\'' +
                 ", goodPicture='" + goodPicture + '\'' +
-                ", goodStore='" + goodStore + '\'' +
+                ", goodStore=" + goodStore +
                 ", goodCommentCount=" + goodCommentCount +
+                ", realInventory=" + realInventory +
+                ", virtualInventory=" + virtualInventory +
                 '}';
     }
 
