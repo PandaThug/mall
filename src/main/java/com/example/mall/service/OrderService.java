@@ -63,7 +63,7 @@ public class OrderService {
             order.setOrderStatus(0);
             order.setOrderStatus(-1);
             // 更新商品虚拟库存
-            goodsMapper.updateGoodVirtualInventoryByGoodIdAndPurchaseQuantity(goodId, virtualInventory - purchaseQuantity);
+            goodsMapper.updateGoodVirtualInventoryByGoodIdAndPurchaseQuantity(goodId, purchaseQuantity);
             orderMapper.insertOrder(order);
         }
         return map;
@@ -106,7 +106,7 @@ public class OrderService {
                 if (buyerAccount < price) {
                     map.put("msg", "支付失败,用户余额不足!");
                 } else {
-                    goodsMapper.updateGoodRealInventoryByGoodIdAndPurchaseQuantity(goodId, realInventory - purchaseQuantity);
+                    goodsMapper.updateGoodRealInventoryByGoodIdAndPurchaseQuantity(goodId, purchaseQuantity);
                     userMapper.updateUserAccountByUserId(userId, buyerAccount - price);
                     userMapper.updateUserAccountByUserId(storeId, sellerAccount + price);
                     orderMapper.updateOrderStatus(orderId);
