@@ -68,8 +68,20 @@ public class GoodsService {
     }
 
     // 根据商品id删除对应商品
-    public int deleteGoodByGoodId(int goodId) {
-        return goodsMapper.deleteGoodById(goodId);
+    public Map<String, Object> deleteGoodByGoodId(int goodId) {
+        Map<String, Object> map = new HashMap<>();
+        List<Integer> list = orderMapper.selectOrderIdsByGoodsId(goodId);
+        Good good = goodsMapper.selectGoodById(goodId);
+        if (good == null) {
+            map.put("good", "该商品不存在!");
+            return map;
+        } else if (!list.isEmpty()) {
+            map.put("order", "该商品还有未完成的订单!");
+            return map;
+        } else {
+            goodsMapper.deleteGoodById(goodId);
+        }
+        return map;
     }
 
     // 根据多个商品id删除多个商品
@@ -101,6 +113,11 @@ public class GoodsService {
     // 根据商品id查询其虚拟库存
     public int findVirtualInventoryByGoodId(int id) {
         return goodsMapper.selectVirtualInventoryByGoodId(id);
+    }
+
+    // 根据商品类别查询商品
+    public List<Good> findGoodsByClass(String category) {
+        return goodsMapper.selectGoodByCategory(category);
     }
 
 }

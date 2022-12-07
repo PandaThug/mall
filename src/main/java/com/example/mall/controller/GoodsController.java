@@ -130,9 +130,13 @@ public class GoodsController {
 
         if (NumUtil.isNumeric(id)) {
             int i = Integer.parseInt(id);
-            int num = goodsService.deleteGoodByGoodId(i);
-            if (num != 0) {
+            Map<String, Object> map = goodsService.deleteGoodByGoodId(i);
+            if (map == null || map.isEmpty()) {
                 model.addAttribute("msg", "删除成功!");
+            } else if (map.containsKey("order")) {
+                model.addAttribute("msg", map.get("order"));
+            } else if (map.containsKey("good")) {
+                model.addAttribute("msg", map.get("good"));
             } else {
                 model.addAttribute("msg", "商品不存在!");
             }

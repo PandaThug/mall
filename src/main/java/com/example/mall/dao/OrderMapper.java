@@ -29,6 +29,9 @@ public interface OrderMapper {
     // 根据订单编号查找对应的店铺编号
     int selectStoreIdByOrderId(@Param("orderId") int orderId);
 
+    // 根据商品编号查找对应的订单编号
+    List<Integer> selectOrderIdsByGoodsId(@Param("goodsId") int goodsId);
+
     // 根据订单编号查找对应的订单
     Order selectOrderById(@Param("orderId") int orderId);
 

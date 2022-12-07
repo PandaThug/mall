@@ -58,4 +58,9 @@
         where order_id = #{orderId}
     </select>
 
+    <select id="selectOrderIdsByGoodsId" resultType="java.lang.Integer">
+        select order_id
+        from `order`
+        where good_id = #{goodsId}
+    </select>
 </mapper>

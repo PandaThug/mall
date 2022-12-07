@@ -55,6 +55,19 @@ public class HomeController {
         return model.toString();
     }
 
+    @RequestMapping(path = "/addToIndex", method = RequestMethod.GET, params = "className")
+    @ResponseBody
+    public String addGoodsToToIndexByClass(Model model, @RequestParam(value = "className") String className) {
+        List<Good> goods = goodsService.findGoodsByClass(className);
+        for (int i = 0; i < goods.size(); i++) {
+            if (i > 24) {
+                break;
+            }
+            model.addAttribute("good" + i, goods.get(i));
+        }
+        return model.toString();
+    }
+
     @RequestMapping(path = "/goods", method = RequestMethod.GET)
     public String getGoodsPage() {
         return "/site/goods";
