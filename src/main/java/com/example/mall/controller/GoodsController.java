@@ -30,12 +30,6 @@ public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
-    @Value("${mall.path.upload}")
-    private String uploadPath;
-    @Value("${mall.path.domain}")
-    private String domain;
-    @Value("${server.servlet.context-path}")
-    private String contextPath;
     @Autowired
     private GoodsService goodsService;
     @Autowired

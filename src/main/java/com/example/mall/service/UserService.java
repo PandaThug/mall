@@ -34,10 +34,6 @@ public class UserService {
     private TemplateEngine templateEngine;
     @Autowired
     private RedisTemplate redisTemplate;
-    @Value("${mall.path.domain}")
-    private String domain;
-    @Value("${server.servlet.context-path}")
-    private String contextPath;
 
     public User findUserById(int id) {
 //        return userMapper.selectById(id);
