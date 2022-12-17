@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Controller
+@CrossOrigin
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);

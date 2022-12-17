@@ -20,6 +20,7 @@ import java.util.Map;
 import static com.example.mall.utils.MallConstant.*;
 
 @Controller
+@CrossOrigin
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
